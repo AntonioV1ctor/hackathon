@@ -1,15 +1,18 @@
 <section class="relative h-[75vh] overflow-hidden flex items-center justify-center">
 
     <!-- Vídeo de fundo -->
-    <div class="absolute inset-0 -z-10 pointer-events-none">
-        <iframe 
-            class="w-full h-full object-cover"
-            src="https://www.youtube.com/embed/n694VN8nUt0?autoplay=1&mute=1&loop=1&playlist=n694VN8nUt0&controls=0&showinfo=0&modestbranding=1"
-            frameborder="0"
-            allow="autoplay; fullscreen; loop"
-            allowfullscreen>
-        </iframe>
-    </div>
+    <div class="absolute inset-0 -z-10 overflow-hidden">
+    <video 
+        autoplay 
+        muted 
+        loop 
+        playsinline 
+        class="w-full h-full object-cover"
+    >
+        <source src="/hackathon/view/assets/videos/Hackaton.mp4" type="video/mp4">
+    </video>
+</div>
+
 
     <!-- Overlay -->
     <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/40"></div>
@@ -33,10 +36,10 @@
                 🍽️ Explorar Restaurantes
             </a>
 
-            <a href="#lista"
+            <a href="/hackathon/view/pages/roteiro.php"
                 class="flex items-center gap-2 px-6 py-3 rounded-lg bg-[#f2c14e] 
                        text-black font-semibold shadow hover:brightness-95 transition">
-                🗺️ Roteiros & Cidades
+                🗺️ Roteiros
             </a>
 
         </div>

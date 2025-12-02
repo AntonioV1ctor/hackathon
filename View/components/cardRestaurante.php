@@ -42,7 +42,7 @@ function cardRestaurante($img, $nome, $cidade, $culinaria, $rating, $preco, $des
             <p class='text-sm text-slate-600 mt-2 line-clamp-2'>$desc</p>
 
             <div class='flex items-center justify-between mt-3'>
-                <a href='/restaurante.php?id=$id' 
+                <a href='/hackathon/view/pages/detalhesRestaurante.php?id=$id' 
                    class='text-sm font-semibold text-[#00a6bf] hover:underline'>
                     Detalhes →
                 </a>

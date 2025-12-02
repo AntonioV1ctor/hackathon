@@ -12,13 +12,26 @@ document.addEventListener("DOMContentLoaded", () => {
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value.trim();
 
-        if (email === "admin@ms.com" && password === "1234") {
-            alertBox.classList.add("hidden");
-            window.location.href = "/hackathon/index.php";
-        } else {
-            alertBox.textContent = "E-mail ou senha incorretos.";
-            alertBox.classList.remove("hidden");
-        }
+        fetch('/hackathon/Controller/loginController.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, senha: password })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alertBox.classList.add("hidden");
+                    window.location.href = "/hackathon/index.php";
+                } else {
+                    alertBox.textContent = data.message;
+                    alertBox.classList.remove("hidden");
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alertBox.textContent = "Erro ao conectar com o servidor.";
+                alertBox.classList.remove("hidden");
+            });
     });
 
 });
