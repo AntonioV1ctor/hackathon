@@ -50,31 +50,6 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
 
--- -----------------------------------------------------
--- Tabela `vouchers`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `vouchers`;
-CREATE TABLE IF NOT EXISTS `vouchers` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `usuario_id` INT NOT NULL,
-  `restaurante_id` INT NOT NULL,
-  `codigo` VARCHAR(50) NOT NULL UNIQUE,
-  `data_geracao` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `data_validade` DATETIME NOT NULL,
-  `status` ENUM('ativo', 'utilizado', 'expirado') DEFAULT 'ativo',
-  `data_utilizacao` DATETIME NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_vouchers_usuarios`
-    FOREIGN KEY (`usuario_id`)
-    REFERENCES `usuarios` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_vouchers_restaurantes`
-    FOREIGN KEY (`restaurante_id`)
-    REFERENCES `restaurantes` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- -----------------------------------------------------
 -- Tabela `avaliacoes`
