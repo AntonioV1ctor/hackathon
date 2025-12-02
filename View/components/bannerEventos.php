@@ -1,46 +1,93 @@
-<section class="relative h-[55vh] md:h-[65vh] overflow-hidden flex items-center">
+<?php
+// MOCK de eventos
+$eventos = [
+    [
+        "titulo" => "Festival Gastronômico de Bonito",
+        "data"   => "12 a 15 de Março",
+        "local"  => "Bonito - MS",
+        "img"    => "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&w=1200"
+    ],
+    [
+        "titulo" => "Feira do Peixe Pantaneiro",
+        "data"   => "22 a 24 de Abril",
+        "local"  => "Corumbá - MS",
+        "img"    => "https://images.unsplash.com/photo-1533777324565-a040eb52fac1?auto=format&w=1200"
+    ],
+    [
+        "titulo" => "Semana da Culinária Sul-Mato-Grossense",
+        "data"   => "10 a 13 de Agosto",
+        "local"  => "Campo Grande - MS",
+        "img"    => "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&w=1200"
+    ]
+];
+?>
 
-    <!-- Fundo com imagem temática do MS -->
-    <div class="absolute inset-0 -z-10">
-        <img 
-            src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=1920&q=70"
-            class="w-full h-full object-cover"
-            alt="Eventos Gastronômicos MS"
-        >
-    </div>
+<section class="relative max-w-7xl mx-auto px-4 md:px-6 mt-20">
 
-    <!-- Overlay degradê -->
-    <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
+    <h2 class="text-3xl font-extrabold text-[#004e64] mb-6">
+        Eventos Gastronômicos
+    </h2>
 
-    <!-- Conteúdo -->
-    <div class="relative z-10 px-8 md:px-16 max-w-4xl text-white">
+    <div class="relative overflow-hidden rounded-2xl shadow-lg">
 
-        <span class="inline-flex items-center gap-2 bg-[#f2c14e] text-black font-semibold px-4 py-1 rounded-full text-sm shadow">
-            🎉 Eventos no MS
-        </span>
+        <!-- Carrossel -->
+        <div id="carouselEventos" class="flex transition-all duration-700">
 
-        <h2 class="text-4xl md:text-5xl font-extrabold mt-4 drop-shadow-lg leading-tight">
-            Gastronomia, Cultura & Tradição  
-        </h2>
+            <?php foreach ($eventos as $ev): ?>
+                <div class="flex-none w-full relative h-72 md:h-96">
 
-        <p class="mt-4 text-lg md:text-xl text-white/90 drop-shadow">
-            Descubra os melhores festivais gastronômicos, feiras culturais e eventos regionais acontecendo em Mato Grosso do Sul.
-        </p>
+                    <img src="<?= $ev['img'] ?>" 
+                         class="absolute inset-0 w-full h-full object-cover">
 
-        <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                    <div class="absolute inset-0 bg-black/50"></div>
 
-            <a href="/eventos"
-                class="px-6 py-3 rounded-lg bg-[#00a6bf] text-black font-semibold shadow hover:brightness-95 transition flex items-center gap-2">
-                📅 Ver eventos disponíveis
-            </a>
+                    <div class="absolute bottom-6 left-6 text-white drop-shadow-lg">
+                        <h3 class="text-2xl md:text-3xl font-bold"><?= $ev['titulo'] ?></h3>
+                        <p class="text-sm md:text-base mt-1"><?= $ev['data'] ?></p>
+                        <p class="text-sm md:text-base opacity-90"><?= $ev['local'] ?></p>
+                    </div>
 
-            <a href="/eventos/calendario"
-                class="px-6 py-3 rounded-lg bg-white/20 border border-white text-white font-semibold shadow hover:bg-white/30 transition flex items-center gap-2">
-                🗓️ Calendário completo
-            </a>
+                </div>
+            <?php endforeach; ?>
 
         </div>
 
-    </div>
+        <!-- SETAS -->
+        <button id="prevEvento"
+            class="absolute top-1/2 left-4 -translate-y-1/2 bg-black/40 backdrop-blur 
+                   text-white rounded-full p-2 hover:bg-black/60 transition">
+            ‹
+        </button>
 
+        <button id="nextEvento"
+            class="absolute top-1/2 right-4 -translate-y-1/2 bg-black/40 backdrop-blur 
+                   text-white rounded-full p-2 hover:bg-black/60 transition">
+            ›
+        </button>
+
+    </div>
 </section>
+
+<script>
+let indexEv = 0;
+const sliderEv = document.getElementById("carouselEventos");
+const totalEv = <?= count($eventos) ?>;
+
+// AVANÇAR
+document.getElementById("nextEvento").onclick = () => {
+    indexEv = (indexEv + 1) % totalEv;
+    sliderEv.style.transform = `translateX(-${indexEv * 100}%)`;
+};
+
+// VOLTAR
+document.getElementById("prevEvento").onclick = () => {
+    indexEv = (indexEv - 1 + totalEv) % totalEv;
+    sliderEv.style.transform = `translateX(-${indexEv * 100}%)`;
+};
+
+// AUTOPLAY
+setInterval(() => {
+    indexEv = (indexEv + 1) % totalEv;
+    sliderEv.style.transform = `translateX(-${indexEv * 100}%)`;
+}, 6000);
+</script>

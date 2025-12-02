@@ -4,11 +4,8 @@
 
     <!-- LADO ESQUERDO COM IMAGEM -->
     <div class="hidden lg:flex w-1/2 relative">
-        <img 
-            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=60"
-            alt="Prato regional MS"
-            class="object-cover w-full h-full"
-        >
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=60"
+            alt="Prato regional MS" class="object-cover w-full h-full">
 
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
 
@@ -46,35 +43,19 @@
 
                 <div>
                     <label class="text-sm font-medium text-[#004e64]">E-mail</label>
-                    <input 
-                        id="email"
-                        type="email"
-                        required
-                        placeholder="email@exemplo.com"
-                        class="w-full mt-1 p-2 border rounded bg-white 
-                               focus:ring-2 focus:ring-[#00a6bf]"
-                    >
+                    <input id="email" type="email" required placeholder="email@exemplo.com" class="w-full mt-1 p-2 border rounded bg-white 
+                               focus:ring-2 focus:ring-[#00a6bf]">
                 </div>
 
                 <div>
                     <label class="text-sm font-medium text-[#004e64]">Senha</label>
-                    <input 
-                        id="password"
-                        type="password"
-                        required 
-                        minlength="4"
-                        placeholder="••••••••"
-                        class="w-full mt-1 p-2 border rounded bg-white 
-                               focus:ring-2 focus:ring-[#00a6bf]"
-                    >
+                    <input id="password" type="password" required minlength="4" placeholder="••••••••" class="w-full mt-1 p-2 border rounded bg-white 
+                               focus:ring-2 focus:ring-[#00a6bf]">
                 </div>
 
-                <button 
-                    type="submit"
-                    class="w-full py-2 bg-[#004e64] text-white rounded-md font-semibold 
+                <button type="submit" class="w-full py-2 bg-[#004e64] text-white rounded-md font-semibold 
                            hover:bg-[#003947] transition 
-                           focus:ring-2 focus:ring-[#00a6bf]"
-                >
+                           focus:ring-2 focus:ring-[#00a6bf]">
                     Entrar
                 </button>
 
@@ -97,25 +78,7 @@
         </div>
     </div>
 
-    <script>
-        const form = document.getElementById("loginForm");
-        const alertBox = document.getElementById("alert");
-
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-
-            const email = document.getElementById("email").value.trim();
-            const password = document.getElementById("password").value.trim();
-
-            if (email === "admin@ms.com" && password === "1234") {
-                alertBox.classList.add("hidden");
-                window.location.href = "/hackathon/index.php";
-            } else {
-                alertBox.textContent = "E-mail ou senha incorretos.";
-                alertBox.classList.remove("hidden");
-            }
-        });
-    </script>
 
 </body>
+
 </html>
