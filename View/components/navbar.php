@@ -30,9 +30,9 @@ $isAdmin = isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin';
             <a href="/hackathon/view/pages/roteiro.php" class="hover:text-[#00a6bf] transition">Roteiros</a>
 
             <?php if ($isAdmin): ?>
-                <a href="/hackathon/view/admin/cadastrar_restaurante.php" 
+                <a href="/hackathon/View/pages/Administracao.php" 
                    class="text-emerald-600 font-bold hover:text-emerald-700 transition flex items-center gap-1">
-                   <span>+</span> Novo Restaurante
+                   Administração
                 </a>
             <?php endif; ?>
 
@@ -73,9 +73,9 @@ $isAdmin = isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin';
             </a>
 
             <?php if ($isAdmin): ?>
-                <a href="/hackathon/view/admin/cadastrar_restaurante.php" 
+                <a href="/hackathon/View/pages/Administracao.php" 
                    class="block text-emerald-600 font-bold hover:pl-2 transition-all">
-                   + Cadastrar Restaurante
+                   Administração
                 </a>
             <?php endif; ?>
 

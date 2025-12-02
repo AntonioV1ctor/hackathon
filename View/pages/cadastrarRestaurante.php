@@ -22,7 +22,7 @@ require_once '../components/head.php';
                 <h1 class="text-3xl font-bold text-[#004e64]">Novo Restaurante</h1>
                 <p class="text-slate-500">Preencha as informações para cadastrar um novo estabelecimento.</p>
             </div>
-            <a href="/hackathon/view/pages/restaurantes.php" class="text-sm text-slate-500 hover:text-[#004e64]">
+            <a href="/hackathon/View/pages/Administracao.php" class="text-sm text-slate-500 hover:text-[#004e64]">
                 cancelar
             </a>
         </div>
