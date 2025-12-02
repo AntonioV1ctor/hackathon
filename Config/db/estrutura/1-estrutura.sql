@@ -1,0 +1,187 @@
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+CREATE TABLE usuarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(150) NOT NULL,
+  email VARCHAR(150) NOT NULL UNIQUE,
+  senha_hash VARCHAR(255) NOT NULL,
+  tipo ENUM('admin','usuario') NOT NULL DEFAULT 'usuario',
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE cidades (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(150) NOT NULL,
+  slug VARCHAR(180) NOT NULL UNIQUE,
+  descricao TEXT,
+  populacao INT NULL,
+  latitude DECIMAL(10,7) NULL,
+  longitude DECIMAL(10,7) NULL,
+  imagem_capa VARCHAR(255),
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE destinos_turisticos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(200) NOT NULL,
+  slug VARCHAR(220) NOT NULL UNIQUE,
+  cidade_id INT NULL,
+  descricao LONGTEXT,
+  categoria ENUM('natureza','aventura','cultura','historia','gastronomia','outros') DEFAULT 'outros',
+  endereco VARCHAR(255),
+  latitude DECIMAL(10,7) NULL,
+  longitude DECIMAL(10,7) NULL,
+  horario_funcionamento VARCHAR(255),
+  preco_medio DECIMAL(10,2) NULL,
+  imagem_capa VARCHAR(255),
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NULL ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (cidade_id) REFERENCES cidades(id) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE restaurantes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(200) NOT NULL,
+  slug VARCHAR(220) NOT NULL UNIQUE,
+  cidade_id INT NULL,
+  tipo_cozinha VARCHAR(150),
+  descricao LONGTEXT,
+  endereco VARCHAR(255),
+  telefone VARCHAR(30),
+  site VARCHAR(255),
+  horario_funcionamento VARCHAR(255),
+  faixa_preco ENUM('baixo','medio','alto') DEFAULT 'medio',
+  imagem_capa VARCHAR(255),
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NULL ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (cidade_id) REFERENCES cidades(id) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE eventos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(200) NOT NULL,
+  slug VARCHAR(220) NOT NULL UNIQUE,
+  cidade_id INT NULL,
+  descricao LONGTEXT,
+  local VARCHAR(255),
+  data_inicio DATE NOT NULL,
+  data_fim DATE NULL,
+  imagem_capa VARCHAR(255),
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NULL ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (cidade_id) REFERENCES cidades(id) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE galeria_fotos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  tipo ENUM('destino','restaurante','evento','cidade','outro') NOT NULL,
+  referencia_id INT NOT NULL,
+  caminho VARCHAR(255) NOT NULL,
+  legenda VARCHAR(255),
+  ordem INT DEFAULT 0,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE avaliacoes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  usuario_id INT NULL,
+  tipo ENUM('destino','restaurante','evento') NOT NULL,
+  referencia_id INT NOT NULL,
+  nota TINYINT NOT NULL CHECK (nota BETWEEN 1 AND 5),
+  comentario TEXT,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE categorias_gastronomicas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL UNIQUE,
+  slug VARCHAR(120) NOT NULL UNIQUE,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE restaurantes_categorias (
+  restaurante_id INT NOT NULL,
+  categoria_id INT NOT NULL,
+  PRIMARY KEY (restaurante_id, categoria_id),
+  FOREIGN KEY (restaurante_id) REFERENCES restaurantes(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (categoria_id) REFERENCES categorias_gastronomicas(id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE posts_blog (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  titulo VARCHAR(200) NOT NULL,
+  slug VARCHAR(255) NOT NULL UNIQUE,
+  conteudo LONGTEXT NOT NULL,
+  autor_id INT NULL,
+  imagem_capa VARCHAR(255),
+  publicado BOOLEAN NOT NULL DEFAULT FALSE,
+  publicado_em DATETIME NULL,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NULL ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (autor_id) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE planos_viagem (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(200) NOT NULL,
+  slug VARCHAR(220) NOT NULL UNIQUE,
+  descricao TEXT,
+  duracao_dias INT DEFAULT 1,
+  imagem_capa VARCHAR(255),
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE plano_destinos (
+  plano_id INT NOT NULL,
+  destino_id INT NOT NULL,
+  ordem INT NOT NULL DEFAULT 1,
+  observacao VARCHAR(255),
+  PRIMARY KEY (plano_id, destino_id),
+  FOREIGN KEY (plano_id) REFERENCES planos_viagem(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (destino_id) REFERENCES destinos_turisticos(id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE logs_admin (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  admin_id INT NULL,
+  acao VARCHAR(255) NOT NULL,
+  tabela VARCHAR(100) NOT NULL,
+  registro_id INT NULL,
+  descricao TEXT,
+  ip VARCHAR(45),
+  user_agent VARCHAR(255),
+  data DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (admin_id) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE parceiros (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(200) NOT NULL,
+  tipo ENUM('agencia','hotel','operadora','restaurante','outro') DEFAULT 'outro',
+  descricao TEXT,
+  contato VARCHAR(255),
+  site VARCHAR(255),
+  ativo BOOLEAN NOT NULL DEFAULT TRUE,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE hoteis (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(200) NOT NULL,
+  cidade_id INT NULL,
+  descricao TEXT,
+  endereco VARCHAR(255),
+  telefone VARCHAR(30),
+  site VARCHAR(255),
+  faixa_preco ENUM('budget','standard','luxo') DEFAULT 'standard',
+  imagem_capa VARCHAR(255),
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (cidade_id) REFERENCES cidades(id) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+SET FOREIGN_KEY_CHECKS = 1;
