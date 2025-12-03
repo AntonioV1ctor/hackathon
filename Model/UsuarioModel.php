@@ -34,4 +34,14 @@ class UsuarioModel
         }
     }
 
+    public function findUsuarioByEmail($email)
+    {
+        $sql = "SELECT * FROM usuarios WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 }
