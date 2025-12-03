@@ -2,7 +2,7 @@
 
 <section class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6">
 
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
 
         <div>
             <label class="text-sm font-medium text-slate-600 mb-1 flex gap-2 items-center">
@@ -20,6 +20,18 @@
             <select name="cidade" id="filter-city"
                 class="p-2 border rounded-lg shadow-sm w-full focus:ring-2 focus:ring-[#00a6bf]">
                 <option value="">Todas</option>
+                <?php
+                $jsonPath = __DIR__ . '/../../data/cidades.json';
+                if (file_exists($jsonPath)) {
+                    $jsonContent = file_get_contents($jsonPath);
+                    $data = json_decode($jsonContent, true);
+                    if (isset($data['estados'][0]['cidades'])) {
+                        foreach ($data['estados'][0]['cidades'] as $cidade) {
+                            echo "<option value=\"$cidade\">$cidade</option>";
+                        }
+                    }
+                }
+                ?>
             </select>
         </div>
 
@@ -30,6 +42,20 @@
             <select name="culinaria" id="filter-cuisine"
                 class="p-2 border rounded-lg shadow-sm w-full focus:ring-2 focus:ring-[#00a6bf]">
                 <option value="">Todas</option>
+                <?php
+                $categorias = [
+                    'Regional',
+                    'Peixes e Frutos do Mar',
+                    'Churrascaria',
+                    'Comida Caseira',
+                    'Italiano/Massas',
+                    'Japonesa',
+                    'Lanches e Porções'
+                ];
+                foreach ($categorias as $cat) {
+                    echo "<option value=\"$cat\">$cat</option>";
+                }
+                ?>
             </select>
         </div>
 
@@ -40,22 +66,12 @@
             <select name="preco" id="filter-price"
                 class="p-2 border rounded-lg shadow-sm w-full focus:ring-2 focus:ring-[#00a6bf]">
                 <option value="">Todos</option>
-                <option value="1">R$</option>
-                <option value="2">R$$</option>
-                <option value="3">R$$$</option>
-            </select>
-        </div>
-
-        <div>
-            <label class="text-sm font-medium text-slate-600 mb-1 flex gap-2 items-center">
-                Avaliação
-            </label>
-            <select name="rating" id="filter-rating"
-                class="p-2 border rounded-lg shadow-sm w-full focus:ring-2 focus:ring-[#00a6bf]">
-                <option value="">Todas</option>
-                <option value="4">4 ★+</option>
-                <option value="3">3 ★+</option>
-                <option value="2">2 ★+</option>
+                <?php
+                $faixas = ['$barato', '$$moderado', '$$$caro', '$$$$sofisticado'];
+                foreach ($faixas as $faixa) {
+                    echo "<option value=\"$faixa\">" . ucfirst($faixa) . "</option>";
+                }
+                ?>
             </select>
         </div>
 
