@@ -15,6 +15,10 @@ class UsuarioModel
     public function cadastrarUsuario($nome, $email, $senha)
     {
         try {
+            if ($this->findUsuarioByEmail($email)) {
+                return false;
+            }
+
             $senhaHash = password_hash($senha, PASSWORD_BCRYPT);
             
             $query = "INSERT INTO usuarios (nome, email, senha_hash, tipo) VALUES (:nome, :email, :senha_hash, :tipo)";

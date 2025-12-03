@@ -73,7 +73,7 @@
                 <a href="cadastro.php" class="text-[#00a6bf] font-medium hover:underline">
                     Criar conta
                 </a>
-            </div>
+            </p>
         </div>
     </div>
 
