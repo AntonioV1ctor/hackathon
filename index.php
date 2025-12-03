@@ -1,5 +1,4 @@
 <?php require_once 'view/components/head.php' ?>
-
 <body class="bg-gradient-to-b from-[#e4f1f4] to-white text-slate-900">
 
   <?php require_once 'view/components/navbar.php' ?>

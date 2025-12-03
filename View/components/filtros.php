@@ -6,7 +6,7 @@
 
         <div>
             <label class="text-sm font-medium text-slate-600 mb-1 flex gap-2 items-center">
-                🔍 Buscar
+                Buscar
             </label>
             <input name="q" id="search"
                 class="p-2 px-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#00a6bf]"
@@ -15,7 +15,7 @@
 
         <div>
             <label class="text-sm font-medium text-slate-600 mb-1 flex gap-2 items-center">
-                📍 Cidade
+                Cidade
             </label>
             <select name="cidade" id="filter-city"
                 class="p-2 border rounded-lg shadow-sm w-full focus:ring-2 focus:ring-[#00a6bf]">
@@ -25,7 +25,7 @@
 
         <div>
             <label class="text-sm font-medium text-slate-600 mb-1 flex gap-2 items-center">
-                🍽️ Culinária
+                Culinária
             </label>
             <select name="culinaria" id="filter-cuisine"
                 class="p-2 border rounded-lg shadow-sm w-full focus:ring-2 focus:ring-[#00a6bf]">
@@ -35,7 +35,7 @@
 
         <div>
             <label class="text-sm font-medium text-slate-600 mb-1 flex gap-2 items-center">
-                💵 Preço
+                Preço
             </label>
             <select name="preco" id="filter-price"
                 class="p-2 border rounded-lg shadow-sm w-full focus:ring-2 focus:ring-[#00a6bf]">
@@ -48,7 +48,7 @@
 
         <div>
             <label class="text-sm font-medium text-slate-600 mb-1 flex gap-2 items-center">
-                ⭐ Avaliação
+                Avaliação
             </label>
             <select name="rating" id="filter-rating"
                 class="p-2 border rounded-lg shadow-sm w-full focus:ring-2 focus:ring-[#00a6bf]">

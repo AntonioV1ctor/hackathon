@@ -30,16 +30,16 @@
 
         <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
 
-            <a href="#lista"
+            <a href="/hackathon/view/pages/restaurantes.php"
                 class="flex items-center gap-2 px-6 py-3 rounded-lg bg-[#00a6bf] 
                        text-black font-semibold shadow hover:brightness-95 transition">
-                🍽️ Explorar Restaurantes
+                Explorar Restaurantes
             </a>
 
             <a href="/hackathon/view/pages/roteiro.php"
                 class="flex items-center gap-2 px-6 py-3 rounded-lg bg-[#f2c14e] 
                        text-black font-semibold shadow hover:brightness-95 transition">
-                🗺️ Roteiros
+                Roteiros
             </a>
 
         </div>
