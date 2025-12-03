@@ -67,9 +67,14 @@
                 class="p-2 border rounded-lg shadow-sm w-full focus:ring-2 focus:ring-[#00a6bf]">
                 <option value="">Todos</option>
                 <?php
-                $faixas = ['$barato', '$$moderado', '$$$caro', '$$$$sofisticado'];
-                foreach ($faixas as $faixa) {
-                    echo "<option value=\"$faixa\">" . ucfirst($faixa) . "</option>";
+                $faixas = [
+                    'barato' => '$',
+                    'moderado' => '$$',
+                    'caro' => '$$$',
+                    'sofisticado' => '$$$$'
+                ];
+                foreach ($faixas as $valor => $label) {
+                    echo "<option value=\"$valor\">$label " . ucfirst($valor) . "</option>";
                 }
                 ?>
             </select>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . "/../Model/RestauranteModel.php";
+require_once __DIR__ . "/../Model/restauranteModel.php";
 
 try {
     if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -10,9 +10,7 @@ try {
     $method = $_POST['_method'] ?? 'POST';
     $restauranteModel = new RestauranteModel();
 
-    // =================================================================================
-    // CREATE (POST)
-    // =================================================================================
+    // CREATE 
     if ($method === 'POST') {
         $nome = $_POST['nome'] ?? '';
         $cidade = $_POST['cidade'] ?? '';
@@ -66,9 +64,7 @@ try {
         }
     }
 
-    // =================================================================================
-    // UPDATE (PUT)
-    // =================================================================================
+    // UPDATE
     elseif ($method === 'PUT') {
         $id = $_POST['id'] ?? null;
         if (!$id) {

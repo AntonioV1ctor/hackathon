@@ -13,57 +13,21 @@
     <?php require_once '../components/filtros.php'; ?>
 
     <?php
-    // MOCK (substituir por SELECT no banco)
-    $restaurantes = [
-        [
-            "id" => 1,
-            "nome" => "Casa do João",
-            "cidade" => "Bonito",
-            "culinaria" => "Pantaneira",
-            "preco" => 2,
-            "rating" => 5,
-            "img" => "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&w=900",
-            "desc" => "Pratos típicos regionais."
-        ],
-        [
-            "id" => 2,
-            "nome" => "Tayama Sushi",
-            "cidade" => "Campo Grande",
-            "culinaria" => "Japonês",
-            "preco" => 3,
-            "rating" => 4,
-            "img" => "https://images.unsplash.com/photo-1555992336-cbfcd98a6e56?auto=format&w=900",
-            "desc" => "Sushi com toque regional."
-        ],
-    ];
+    require_once '../../Model/restauranteModel.php';
+    
+    $restauranteModel = new RestauranteModel();
 
     // FILTROS RECEBIDOS
-    $q        = $_GET["q"] ?? "";
-    $cidade   = $_GET["cidade"] ?? "";
-    $culinaria = $_GET["culinaria"] ?? "";
-    $preco    = $_GET["preco"] ?? "";
-    $rating   = $_GET["rating"] ?? "";
+    $filtros = [
+        'q' => $_GET["q"] ?? "",
+        'cidade' => $_GET["cidade"] ?? "",
+        'culinaria' => $_GET["culinaria"] ?? "",
+        'preco' => $_GET["preco"] ?? "",
+        'rating' => $_GET["rating"] ?? ""
+    ];
 
-    // FILTRAR
-    $filtrados = array_filter($restaurantes, function ($r) use ($q, $cidade, $culinaria, $preco, $rating) {
-
-        if ($q && !str_contains(strtolower($r["nome"] . $r["desc"]), strtolower($q)))
-            return false;
-
-        if ($cidade && $cidade !== $r["cidade"])
-            return false;
-
-        if ($culinaria && $culinaria !== $r["culinaria"])
-            return false;
-
-        if ($preco && intval($preco) !== intval($r["preco"]))
-            return false;
-
-        if ($rating && intval($rating) > intval($r["rating"]))
-            return false;
-
-        return true;
-    });
+    // BUSCAR NO BANCO
+    $filtrados = $restauranteModel->buscarRestaurantesPorFiltro($filtros);
     ?>
 
     <!-- GRID -->
@@ -76,14 +40,28 @@
         }
 
         foreach ($filtrados as $r) {
+            // Mapeamento dos campos do banco para o componente card
+            // O componente espera: img, nome, cidade, culinaria, rating, preco, desc, id
+            // No banco: caminho_imagem, nome, cidade, categoria, media_avaliacao (calculado), faixa_preco, descricao, id
+            
+            // Tratamento do preço para exibir cifrões
+            $precoSimbolo = '';
+            switch($r['faixa_preco']) {
+                case 'barato': $precoSimbolo = 1; break;
+                case 'moderado': $precoSimbolo = 2; break;
+                case 'caro': $precoSimbolo = 3; break;
+                case 'sofisticado': $precoSimbolo = 4; break;
+                default: $precoSimbolo = 1;
+            }
+
             echo cardRestaurante(
-                $r["img"],
+                $r["caminho_imagem"] ?? 'https://via.placeholder.com/400x300', // Fallback image
                 $r["nome"],
                 $r["cidade"],
-                $r["culinaria"],
-                $r["rating"],
-                $r["preco"],
-                $r["desc"],
+                $r["categoria"],
+                round($r["media_avaliacao"] ?? 0), // Arredonda a média
+                $precoSimbolo,
+                $r["descricao"],
                 $r["id"]
             );
         }

@@ -34,9 +34,7 @@ function cardRestaurante($img, $nome, $cidade, $culinaria, $rating, $preco, $des
                 <h3 class='text-lg font-semibold text-[#004e64]'>$nome</h3>
                 <p class='text-sm text-slate-500'>$cidade • $culinaria</p>
 
-                <div class='mt-2 text-[#f2c14e] text-sm'>
-                    $starsFilled$starsEmpty
-                </div>
+            
             </div>
 
             <p class='text-sm text-slate-600 mt-2 line-clamp-2'>$desc</p>
