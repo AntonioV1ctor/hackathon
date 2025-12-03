@@ -9,7 +9,7 @@
         playsinline 
         class="w-full h-full object-cover"
     >
-        <source src="/hackathon/view/assets/videos/Hackaton.mp4" type="video/mp4">
+        <source src="/hackathon/View/assets/videos/Hackaton.mp4" type="video/mp4">
     </video>
 </div>
 
@@ -30,13 +30,13 @@
 
         <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
 
-            <a href="/hackathon/view/pages/restaurantes.php"
+            <a href="#lista"
                 class="flex items-center gap-2 px-6 py-3 rounded-lg bg-[#00a6bf] 
                        text-black font-semibold shadow hover:brightness-95 transition">
                 Explorar Restaurantes
             </a>
 
-            <a href="/hackathon/view/pages/roteiro.php"
+            <a href="/hackathon/View/pages/roteiro.php"
                 class="flex items-center gap-2 px-6 py-3 rounded-lg bg-[#f2c14e] 
                        text-black font-semibold shadow hover:brightness-95 transition">
                 Roteiros
@@ -52,6 +52,6 @@
 <!-- FILTRO FLUTUANTE SOBRE A HERO -->
 <div class="relative z-20 flex justify-center -mt-24 px-4">
     <div class="max-w-6xl w-full">
-        <?php require_once 'view/components/filtros.php' ?>
+        <?php require_once 'filtros.php' ?>
     </div>
 </div>

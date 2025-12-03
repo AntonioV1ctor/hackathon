@@ -1,15 +1,16 @@
-<?php require_once 'view/components/head.php' ?>
+<?php require_once 'View/components/head.php' ?>
+
 <body class="bg-gradient-to-b from-[#e4f1f4] to-white text-slate-900">
 
-  <?php require_once 'view/components/navbar.php' ?>
+  <?php require_once 'View/components/navbar.php' ?>
 
   <!-- HERO -->
-  <?php require_once 'view/components/hero.php' ?>
+  <?php require_once 'View/components/hero.php' ?>
 
 
   <!-- CONTEÚDO PRINCIPAL -->
   <main class="max-w-7xl mx-auto px-4 md:px-6 mt-10">
-    <?php require_once 'view/components/cardRestaurante.php' ?>
+    <?php require_once 'View/components/cardRestaurante.php' ?>
 
     <section class="mt-12 mb-20">
       <h2 class="text-2xl font-bold text-[#004e64] mb-6">
@@ -19,7 +20,7 @@
       <div id="cards" class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 
         <?php
-        require_once 'view/components/cardRestaurante.php';
+        require_once 'View/components/cardRestaurante.php';
 
         // MOCK PARA TESTAR
         $restaurantes = [
@@ -83,13 +84,13 @@
 
     </section>
 
-    <?php require_once 'view/components/bannerEventos.php' ?>
+    <?php require_once 'View/components/bannerEventos.php' ?>
 
 
-    <?php require_once 'view/components/modal.php' ?>
+    <?php require_once 'View/components/modal.php' ?>
   </main>
 
-  <?php require_once 'view/components/footer.php' ?>
+  <?php require_once 'View/components/footer.php' ?>
 
 </body>
 

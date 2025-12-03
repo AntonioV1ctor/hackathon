@@ -35,7 +35,7 @@
         ?>
 
         <!-- BOTÃO VOLTAR -->
-        <a href="/hackathon/view/pages/restaurantes.php"
+        <a href="/hackathon/View/pages/restaurantes.php"
             class="inline-block mb-6 text-[#004e64] font-semibold hover:underline">
             ← Voltar
         </a>

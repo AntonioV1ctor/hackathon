@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../Config/database.php';
 
 class UsuarioModel
 {
@@ -12,7 +12,7 @@ class UsuarioModel
         $this->conn = $database->conectar();
     }
 
-    public function CadastrarUsuario($nome, $email, $senha)
+    public function cadastrarUsuario($nome, $email, $senha)
     {
         try {
             $senhaHash = password_hash($senha, PASSWORD_BCRYPT);

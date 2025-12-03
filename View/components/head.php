@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!doctype html>
 <html lang="pt-BR">
 
@@ -8,7 +12,7 @@
   <title>Login — Gastronomia MS</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="/hackathon/view/assets/js/main.js" type="module"></script>
+  <script src="/hackathon/View/assets/js/main.js" type="module"></script>
 
-  <link rel="stylesheet" href="./css/variables.css">
+  <link rel="stylesheet" href="/hackathon/View/assets/css/global.css">
 </head>

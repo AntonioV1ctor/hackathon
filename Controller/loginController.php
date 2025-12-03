@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . "/../Model/LoginModel.php";
+require_once __DIR__ . "/../Model/loginModel.php";
 
 try {
     
@@ -26,7 +26,7 @@ try {
     }
 
     $loginModel = new LoginModel();
-    $usuarioLogin = $loginModel->Login($email, $senha);
+    $usuarioLogin = $loginModel->login($email, $senha);
 
     if (!$usuarioLogin) {
         
@@ -49,11 +49,11 @@ try {
         $_SESSION['loginTentativas'] = 0;
         unset($_SESSION['loginBloqueado']);
 
-        header('Location: ../index.php');
+        header('Location: /hackathon/index.php');
         exit();
     }
 } catch (Exception $e) {
     $_SESSION['erro'] = $e->getMessage();
-    header('Location: ../View/pages/login.php');
+    header('Location: /hackathon/View/pages/login.php');
     exit();
 }

@@ -1,4 +1,4 @@
-<form action="/hackathon/restaurantes.php" method="GET">
+<form action="/hackathon/View/pages/restaurantes.php" method="GET">
 
 <section class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6">
 
@@ -67,7 +67,7 @@
             Filtrar
         </button>
 
-        <a href="/hackathon/lista.php"
+        <a href="/hackathon/View/pages/restaurantes.php"
             class="px-4 py-2 rounded-lg bg-[#004e64] text-white hover:bg-[#003947] transition font-semibold">
             Limpar
         </a>

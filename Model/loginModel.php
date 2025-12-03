@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../Config/database.php';
 
 class LoginModel
 {
@@ -13,7 +13,7 @@ class LoginModel
         $this->conn = $database->conectar();
     }
 
-    public function Login($email, $senha)
+    public function login($email, $senha)
     {
         $sql = "SELECT id, tipo, email, senha_hash FROM {$this->tabela} WHERE email = :email LIMIT 1";
         $stmt = $this->conn->prepare($sql);
@@ -30,7 +30,7 @@ class LoginModel
         return false;
     }
 
-    public function VerificarEmailExistente($email)
+    public function verificarEmailExistente($email)
     {
         $email = trim($email);
         $sql = "SELECT 1 FROM {$this->tabela} WHERE LOWER(email) = LOWER(?) LIMIT 1";

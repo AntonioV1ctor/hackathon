@@ -22,7 +22,7 @@ require_once '../components/head.php';
                 <h1 class="text-3xl font-bold text-[#004e64]">Novo Restaurante</h1>
                 <p class="text-slate-500">Preencha as informações para cadastrar um novo estabelecimento.</p>
             </div>
-            <a href="/hackathon/View/pages/Administracao.php" class="text-sm text-slate-500 hover:text-[#004e64]">
+            <a href="/hackathon/View/pages/administracao.php" class="text-sm text-slate-500 hover:text-[#004e64]">
                 cancelar
             </a>
         </div>
@@ -66,7 +66,7 @@ require_once '../components/head.php';
                     
                     // MOCK: Substituir depois pelo SELECT do banco
 // $sql = "SELECT id, nome FROM categorias ORDER BY nome ASC";
-                    $categorias_db = [
+                    $categoriasDb = [
                         ["id" => 1, "nome" => "Pantaneira"],
                         ["id" => 2, "nome" => "Peixes e Frutos do Mar"],
                         ["id" => 3, "nome" => "Churrascaria"],
@@ -85,7 +85,7 @@ require_once '../components/head.php';
 
                             <option value="" disabled selected>Selecione uma categoria...</option>
 
-                            <?php foreach ($categorias_db as $cat): ?>
+                            <?php foreach ($categoriasDb as $cat): ?>
                                 <option value="<?= $cat['id'] ?>">
                                     <?= $cat['nome'] ?>
                                 </option>

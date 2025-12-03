@@ -39,7 +39,6 @@
             </div>
 
             <?php
-            session_start();
             if (isset($_SESSION['message'])) {
                 $type = $_SESSION['type'] ?? 'erro';
                 $colorClass = $type === 'sucesso' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
