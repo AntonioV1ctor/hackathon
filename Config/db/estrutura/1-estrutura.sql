@@ -6,6 +6,8 @@ CREATE TABLE usuarios (
   nome VARCHAR(150) NOT NULL,
   email VARCHAR(150) NOT NULL UNIQUE,
   senha_hash VARCHAR(255) NOT NULL,
+  pergunta_seguranca VARCHAR(255) NOT NULL,
+  resposta_seguranca_hash VARCHAR(255) NOT NULL,
   tipo ENUM('admin','usuario') NOT NULL DEFAULT 'usuario',
   criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
