@@ -1,4 +1,7 @@
 <?php
+require_once '../../init.php';
+AutenticacaoService::validarAcessoAdmin();
+
 // Verifica se foi enviado (Simulação de backend)
 $sucesso = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -63,9 +66,9 @@ require_once '../components/head.php';
 
                     <?php
                     // ... require_once ...
-                    
+
                     // MOCK: Substituir depois pelo SELECT do banco
-// $sql = "SELECT id, nome FROM categorias ORDER BY nome ASC";
+                    // $sql = "SELECT id, nome FROM categorias ORDER BY nome ASC";
                     $categoriasDb = [
                         ["id" => 1, "nome" => "Pantaneira"],
                         ["id" => 2, "nome" => "Peixes e Frutos do Mar"],

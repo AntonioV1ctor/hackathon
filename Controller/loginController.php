@@ -1,8 +1,8 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . "/../Services/sessaoService.php";
 require_once __DIR__ . "/../Model/loginModel.php";
+
+SessaoService::iniciarSessao();
 
 try {
 
@@ -36,10 +36,7 @@ try {
 
         $usuarioLogin = $_SESSION['login_temp_usuario'];
 
-        $_SESSION['id'] = $usuarioLogin->id;
-        $_SESSION['tipo'] = $usuarioLogin->tipo;
-        $_SESSION['email'] = $usuarioLogin->email;
-        $_SESSION['usuario'] = $usuarioLogin->email;
+        SessaoService::definirSessaoUsuario($usuarioLogin);
 
         unset($_SESSION['login_temp_email']);
         unset($_SESSION['login_temp_usuario']);
