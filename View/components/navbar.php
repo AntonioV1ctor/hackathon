@@ -25,26 +25,27 @@ $infoSessao = $usuarioLogado ? SessaoService::obterInfoSessao() : null;
             <a href="/hackathon" class="hover:text-[#00a6bf] transition">Início</a>
             <a href="/hackathon/View/pages/restaurantes.php" class="hover:text-[#00a6bf] transition">Restaurantes</a>
             <a href="/hackathon/View/pages/roteiro.php" class="hover:text-[#00a6bf] transition">Roteiros</a>
+            <a href="/hackathon/View/pages/mapa.php" class="hover:text-[#00a6bf] transition">Mapa</a>
 
             <?php if ($isAdmin): ?>
-            <a href="/hackathon/View/pages/administracao.php"
-                class="text-emerald-600 font-bold hover:text-emerald-700 transition flex items-center gap-1">
-                Administração
-            </a>
+                <a href="/hackathon/View/pages/administracao.php"
+                    class="text-emerald-600 font-bold hover:text-emerald-700 transition flex items-center gap-1">
+                    Administração
+                </a>
             <?php endif; ?>
 
             <?php if ($usuarioLogado): ?>
-            <div class="flex items-center gap-3">
-                <a href="/hackathon/Controller/sairController.php"
-                    class="px-4 py-2 rounded-md border border-[#004e64] text-[#004e64] hover:bg-slate-50 transition shadow">
-                    Sair
-                </a>
-            </div>
+                <div class="flex items-center gap-3">
+                    <a href="/hackathon/Controller/sairController.php"
+                        class="px-4 py-2 rounded-md border border-[#004e64] text-[#004e64] hover:bg-slate-50 transition shadow">
+                        Sair
+                    </a>
+                </div>
             <?php else: ?>
-            <a href="/hackathon/View/pages/login.php"
-                class="px-4 py-2 rounded-md bg-[#004e64] text-white hover:bg-[#003947] transition shadow">
-                Entrar
-            </a>
+                <a href="/hackathon/View/pages/login.php"
+                    class="px-4 py-2 rounded-md bg-[#004e64] text-white hover:bg-[#003947] transition shadow">
+                    Entrar
+                </a>
             <?php endif; ?>
         </nav>
 
@@ -73,30 +74,33 @@ $infoSessao = $usuarioLogado ? SessaoService::obterInfoSessao() : null;
             <a href="/hackathon/View/pages/roteiro.php" class="block hover:text-[#00a6bf] hover:pl-2 transition-all">
                 Roteiros
             </a>
+            <a href="/hackathon/View/pages/mapa.php" class="block hover:text-[#00a6bf] hover:pl-2 transition-all">
+                Mapa
+            </a>
 
             <?php if ($isAdmin): ?>
-            <a href="/hackathon/View/pages/administracao.php"
-                class="block text-emerald-600 font-bold hover:pl-2 transition-all">
-                Administração
-            </a>
+                <a href="/hackathon/View/pages/administracao.php"
+                    class="block text-emerald-600 font-bold hover:pl-2 transition-all">
+                    Administração
+                </a>
             <?php endif; ?>
 
             <hr class="border-slate-100">
 
             <?php if ($usuarioLogado): ?>
-            <div class="border-t border-slate-100 pt-3">
-                <div class="text-xs text-slate-400 mb-2 px-4">
-                    Sessão expira em <?php echo $infoSessao['expira_em']; ?>
+                <div class="border-t border-slate-100 pt-3">
+                    <div class="text-xs text-slate-400 mb-2 px-4">
+                        Sessão expira em <?php echo $infoSessao['expira_em']; ?>
+                    </div>
+                    <a href="/hackathon/Controller/sairController.php"
+                        class="block text-red-600 font-medium hover:pl-2 transition-all px-4">
+                        Sair da conta
+                    </a>
                 </div>
-                <a href="/hackathon/Controller/sairController.php"
-                    class="block text-red-600 font-medium hover:pl-2 transition-all px-4">
-                    Sair da conta
-                </a>
-            </div>
             <?php else: ?>
-            <a href="/hackathon/View/pages/login.php" class="block text-[#004e64] font-bold hover:pl-2 transition-all">
-                Entrar na conta
-            </a>
+                <a href="/hackathon/View/pages/login.php" class="block text-[#004e64] font-bold hover:pl-2 transition-all">
+                    Entrar na conta
+                </a>
             <?php endif; ?>
         </nav>
     </div>

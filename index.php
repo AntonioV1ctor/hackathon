@@ -50,6 +50,7 @@
 
     <?php require_once 'View/components/bannerEventos.php' ?>
 
+    <?php require_once 'View/components/bannerMapa.php' ?>
 
     <?php require_once 'View/components/modal.php' ?>
   </main>
