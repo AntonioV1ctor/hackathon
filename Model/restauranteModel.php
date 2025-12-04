@@ -27,7 +27,7 @@ class RestauranteModel
                     (:nome, :cidade, :categoria, :descricao, :endereco, :lat, :log, :horario_funcionamento, :faixa_preco, :caminho_imagem)";
 
             $stmt = $this->conn->prepare($sql);
-            
+
             $stmt->bindValue(':nome', $dados['nome']);
             $stmt->bindValue(':cidade', $dados['cidade']);
             $stmt->bindValue(':categoria', $dados['categoria']);
@@ -53,7 +53,7 @@ class RestauranteModel
     public function listarRestaurantes()
     {
         try {
-            $sql = "SELECT * FROM {$this->tabela} ORDER BY nome ASC";
+            $sql = "SELECT * FROM {$this->tabela}";
             $stmt = $this->conn->query($sql);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -72,7 +72,7 @@ class RestauranteModel
         try {
             $sql = "SELECT * FROM {$this->tabela} WHERE id = :id LIMIT 1";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmt->bindValue(':id', $id);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -102,7 +102,7 @@ class RestauranteModel
             foreach ($dados as $chave => $valor) {
                 $stmt->bindValue(":$chave", $valor);
             }
-            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmt->bindValue(':id', $id);
 
             return $stmt->execute();
         } catch (PDOException $e) {
@@ -121,7 +121,7 @@ class RestauranteModel
         try {
             $sql = "DELETE FROM {$this->tabela} WHERE id = :id";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmt->bindValue(':id', $id);
             return $stmt->execute();
         } catch (PDOException $e) {
             error_log("Erro ao excluir restaurante: " . $e->getMessage());
@@ -141,7 +141,7 @@ class RestauranteModel
                     FROM {$this->tabela} r 
                     LEFT JOIN avaliacoes a ON r.id = a.referencia_id 
                     WHERE 1=1";
-            
+
             $params = [];
 
             if (!empty($filtros['q'])) {
@@ -160,8 +160,20 @@ class RestauranteModel
             }
 
             if (!empty($filtros['preco'])) {
-                $sql .= " AND r.faixa_preco = :preco";
-                $params[':preco'] = $filtros['preco'];
+                $preco = $filtros['preco'];
+                // Mapeamento reverso para garantir que busca tanto int quanto string
+                $mapa = [
+                    1 => 'barato',
+                    2 => 'moderado',
+                    3 => 'caro',
+                    4 => 'sofisticado'
+                ];
+
+                $termoString = $mapa[$preco] ?? $preco;
+
+                $sql .= " AND (r.faixa_preco = :preco OR r.faixa_preco = :precoString)";
+                $params[':preco'] = $preco;
+                $params[':precoString'] = $termoString;
             }
 
             $sql .= " GROUP BY r.id";
@@ -183,6 +195,26 @@ class RestauranteModel
 
         } catch (PDOException $e) {
             error_log("Erro ao buscar restaurantes por filtro: " . $e->getMessage());
+            return [];
+        }
+    }
+    /**
+     * Lista 4 restaurantes aleatórios para destaque
+     * @return array
+     */
+    public function listarDestaques()
+    {
+        try {
+            $sql = "SELECT r.*, COALESCE(AVG(a.nota), 0) as media_avaliacao 
+                    FROM {$this->tabela} r 
+                    LEFT JOIN avaliacoes a ON r.id = a.referencia_id 
+                    GROUP BY r.id 
+                    ORDER BY RAND() 
+                    LIMIT 4";
+            $stmt = $this->conn->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Erro ao listar destaques: " . $e->getMessage());
             return [];
         }
     }

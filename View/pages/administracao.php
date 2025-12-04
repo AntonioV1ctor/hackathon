@@ -69,7 +69,7 @@ $restaurantes = [
                         <?php else: ?>
                             <?php foreach ($restaurantes as $r): ?>
                                 <tr class="hover:bg-slate-50 transition">
-                                    <td class="px-6 py-4 font-mono text-xs text-slate-400">#<?= $r['id'] ?></td>
+                                    <td class="px-6 py-4 font-mono text-xs text-slate-400">#<?= $r['id'] ?? '?' ?></td>
                                     <td class="px-6 py-4 font-medium text-slate-800">
                                         <div class="flex items-center gap-3">
                                             <img src="<?= $r['img'] ?>" alt=""
@@ -77,14 +77,14 @@ $restaurantes = [
                                             <span><?= $r['nome'] ?></span>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4"><?= $r['cidade'] ?></td>
+                                    <td class="px-6 py-4"><?= $r['cidade'] ?? '-' ?></td>
                                     <td class="px-6 py-4">
                                         <span class="px-2 py-1 rounded-full bg-slate-100 text-xs font-medium text-slate-600">
-                                            <?= $r['culinaria'] ?>
+                                            <?= $r['categoria'] ?? 'Sem categoria' ?>
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 text-emerald-600 font-medium">
-                                        <?= str_repeat('$', $r['preco']) ?>
+                                        <?= isset($r['faixa_preco']) ? str_repeat('$', (int)$r['faixa_preco']) : '-' ?>
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center justify-center gap-2">
@@ -130,16 +130,6 @@ $restaurantes = [
     </main>
 
     <?php require_once '../components/footer.php'; ?>
-
-    <script>
-        function confirmDelete(id) {
-            if (confirm('Tem certeza que deseja excluir este restaurante?')) {
-                // Aqui entraria a lógica de exclusão (AJAX ou redirect)
-                alert('Simulação: Restaurante ' + id + ' excluído!');
-                // window.location.href = 'delete_restaurant.php?id=' + id;
-            }
-        }
-    </script>
 
 </body>
 

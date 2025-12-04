@@ -7,12 +7,22 @@ $sucesso = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Aqui entraria o INSERT no banco de dados
     $sucesso = true;
+require_once '../../Model/RestauranteModel.php';
+
+$restauranteModel = new RestauranteModel();
+$restaurante = null;
+$isEdit = false;
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $restaurante = $restauranteModel->buscarRestaurantePorId($id);
+    if ($restaurante) {
+        $isEdit = true;
+    }
 }
 
 require_once '../components/head.php';
 ?>
-
-
 
 <body class="min-h-screen bg-slate-100 font-sans">
 
@@ -22,24 +32,24 @@ require_once '../components/head.php';
 
         <div class="mb-8 flex items-center justify-between">
             <div>
-                <h1 class="text-3xl font-bold text-[#004e64]">Novo Restaurante</h1>
-                <p class="text-slate-500">Preencha as informações para cadastrar um novo estabelecimento.</p>
+                <h1 class="text-3xl font-bold text-[#004e64]"><?= $isEdit ? 'Editar Restaurante' : 'Novo Restaurante' ?>
+                </h1>
+                <p class="text-slate-500">Preencha as informações para
+                    <?= $isEdit ? 'atualizar o' : 'cadastrar um novo' ?> estabelecimento.
+                </p>
             </div>
             <a href="/hackathon/View/pages/administracao.php" class="text-sm text-slate-500 hover:text-[#004e64]">
                 cancelar
             </a>
         </div>
 
-        <?php if ($sucesso): ?>
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                <span>Restaurante cadastrado com sucesso!</span>
-            </div>
-        <?php endif; ?>
+        <form method="POST" action="../../Controller/restauranteController.php" enctype="multipart/form-data"
+            class="space-y-6">
 
-        <form method="POST" action="" enctype="multipart/form-data" class="space-y-6">
+            <input type="hidden" name="_method" value="<?= $isEdit ? 'PUT' : 'POST' ?>">
+            <?php if ($isEdit): ?>
+                <input type="hidden" name="id" value="<?= $restaurante['id'] ?>">
+            <?php endif; ?>
 
             <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <h2 class="text-xl font-semibold text-[#004e64] mb-4 border-b pb-2">Dados Gerais</h2>
@@ -48,6 +58,7 @@ require_once '../components/head.php';
                     <div class="col-span-2">
                         <label class="block text-sm font-medium text-slate-700 mb-1">Nome do Restaurante</label>
                         <input type="text" name="nome" required placeholder="Ex: Casa do João"
+                            value="<?= $isEdit ? $restaurante['nome'] : '' ?>"
                             class="w-full rounded-md border-slate-300 shadow-sm focus:border-[#004e64] focus:ring-[#004e64]">
                     </div>
 
@@ -55,11 +66,19 @@ require_once '../components/head.php';
                         <label class="block text-sm font-medium text-slate-700 mb-1">Cidade</label>
                         <select name="cidade"
                             class="w-full rounded-md border-slate-300 shadow-sm focus:border-[#004e64] focus:ring-[#004e64]">
-                            <option value="Bonito">Bonito</option>
-                            <option value="Campo Grande">Campo Grande</option>
-                            <option value="Dourados">Dourados</option>
-                            <option value="Corumbá">Corumbá</option>
-                            <option value="Ponta Porã">Ponta Porã</option>
+                            <?php
+                            $jsonPath = __DIR__ . '/../../data/cidades.json';
+                            if (file_exists($jsonPath)) {
+                                $jsonContent = file_get_contents($jsonPath);
+                                $data = json_decode($jsonContent, true);
+                                if (isset($data['estados'][0]['cidades'])) {
+                                    foreach ($data['estados'][0]['cidades'] as $cidade) {
+                                        $selected = ($isEdit && $restaurante['cidade'] == $cidade) ? 'selected' : '';
+                                        echo "<option value=\"$cidade\" $selected>$cidade</option>";
+                                    }
+                                }
+                            }
+                            ?>
                         </select>
                     </div>
 
@@ -70,26 +89,27 @@ require_once '../components/head.php';
                     // MOCK: Substituir depois pelo SELECT do banco
                     // $sql = "SELECT id, nome FROM categorias ORDER BY nome ASC";
                     $categoriasDb = [
-                        ["id" => 1, "nome" => "Pantaneira"],
-                        ["id" => 2, "nome" => "Peixes e Frutos do Mar"],
-                        ["id" => 3, "nome" => "Churrascaria"],
-                        ["id" => 4, "nome" => "Comida Caseira"],
-                        ["id" => 5, "nome" => "Italiana / Massas"],
-                        ["id" => 6, "nome" => "Japonesa"],
-                        ["id" => 7, "nome" => "Lanches e Porções"],
-                        ["id" => 8, "nome" => "Vegetariana / Vegana"],
+                        ["id" => "Pantaneira", "nome" => "Pantaneira"],
+                        ["id" => "Peixes e Frutos do Mar", "nome" => "Peixes e Frutos do Mar"],
+                        ["id" => "Churrascaria", "nome" => "Churrascaria"],
+                        ["id" => "Comida Caseira", "nome" => "Comida Caseira"],
+                        ["id" => "Italiana / Massas", "nome" => "Italiana / Massas"],
+                        ["id" => "Japonesa", "nome" => "Japonesa"],
+                        ["id" => "Lanches e Porções", "nome" => "Lanches e Porções"],
+                        ["id" => "Vegetariana / Vegana", "nome" => "Vegetariana / Vegana"],
                     ];
                     ?>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Categoria (Culinária)</label>
 
-                        <select name="categoria_id" required
+                        <select name="categoria" required
                             class="w-full rounded-md border-slate-300 shadow-sm focus:border-[#004e64] focus:ring-[#004e64]">
 
-                            <option value="" disabled selected>Selecione uma categoria...</option>
+                            <option value="" disabled <?= !$isEdit ? 'selected' : '' ?>>Selecione uma categoria...
+                            </option>
 
                             <?php foreach ($categoriasDb as $cat): ?>
-                                <option value="<?= $cat['id'] ?>">
+                                <option value="<?= $cat['id'] ?>" <?= ($isEdit && $restaurante['categoria'] == $cat['id']) ? 'selected' : '' ?>>
                                     <?= $cat['nome'] ?>
                                 </option>
                             <?php endforeach; ?>
@@ -99,18 +119,23 @@ require_once '../components/head.php';
 
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Faixa de Preço</label>
-                        <select name="preco"
+                        <select name="faixa_preco"
                             class="w-full rounded-md border-slate-300 shadow-sm focus:border-[#004e64] focus:ring-[#004e64]">
-                            <option value="R$">Barato (R$)</option>
-                            <option value="R$$">Moderado (R$$)</option>
-                            <option value="R$$$">Caro (R$$$)</option>
-                            <option value="R$$$$">Sofisticado (R$$$$)</option>
+                            <option value="1" <?= ($isEdit && $restaurante['faixa_preco'] == 1) ? 'selected' : '' ?>>Barato
+                                ($)</option>
+                            <option value="2" <?= ($isEdit && $restaurante['faixa_preco'] == 2) ? 'selected' : '' ?>>
+                                Moderado ($$)</option>
+                            <option value="3" <?= ($isEdit && $restaurante['faixa_preco'] == 3) ? 'selected' : '' ?>>Caro
+                                ($$$)</option>
+                            <option value="4" <?= ($isEdit && $restaurante['faixa_preco'] == 4) ? 'selected' : '' ?>>
+                                Sofisticado ($$$$)</option>
                         </select>
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Horário de Funcionamento</label>
-                        <input type="text" name="horario" placeholder="Ex: 11:00 às 23:00"
+                        <input type="text" name="horario_funcionamento" placeholder="Ex: 11:00 às 23:00"
+                            value="<?= $isEdit ? $restaurante['horario_funcionamento'] : '' ?>"
                             class="w-full rounded-md border-slate-300 shadow-sm focus:border-[#004e64] focus:ring-[#004e64]">
                     </div>
 
@@ -118,7 +143,7 @@ require_once '../components/head.php';
                         <label class="block text-sm font-medium text-slate-700 mb-1">Descrição</label>
                         <textarea name="descricao" rows="3"
                             placeholder="Conte um pouco sobre a história e o ambiente..."
-                            class="w-full rounded-md border-slate-300 shadow-sm focus:border-[#004e64] focus:ring-[#004e64] resize-none"></textarea>
+                            class="w-full rounded-md border-slate-300 shadow-sm focus:border-[#004e64] focus:ring-[#004e64] resize-none"><?= $isEdit ? $restaurante['descricao'] : '' ?></textarea>
                     </div>
                 </div>
             </div>
@@ -130,17 +155,20 @@ require_once '../components/head.php';
                     <div class="col-span-2">
                         <label class="block text-sm font-medium text-slate-700 mb-1">Endereço Completo</label>
                         <input type="text" name="endereco" placeholder="Rua, Número, Bairro"
+                            value="<?= $isEdit ? $restaurante['endereco'] : '' ?>"
                             class="w-full rounded-md border-slate-300 shadow-sm focus:border-[#004e64] focus:ring-[#004e64]">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Latitude</label>
                         <input type="text" name="lat" placeholder="-21.12345"
+                            value="<?= $isEdit ? $restaurante['lat'] : '' ?>"
                             class="w-full rounded-md border-slate-300 shadow-sm focus:border-[#004e64] focus:ring-[#004e64]">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Longitude</label>
-                        <input type="text" name="lng" placeholder="-56.12345"
+                        <input type="text" name="log" placeholder="-56.12345"
+                            value="<?= $isEdit ? $restaurante['log'] : '' ?>"
                             class="w-full rounded-md border-slate-300 shadow-sm focus:border-[#004e64] focus:ring-[#004e64]">
                     </div>
                     <div class="col-span-2 text-xs text-slate-500">
@@ -155,25 +183,15 @@ require_once '../components/head.php';
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Foto de Capa (Principal)</label>
-                        <input type="file" name="foto_capa" accept="image/*"
+                        <?php if ($isEdit && !empty($restaurante['caminho_imagem'])): ?>
+                            <div class="mb-2">
+                                <img src="<?= $restaurante['caminho_imagem'] ?>" alt="Imagem atual"
+                                    class="h-32 w-auto rounded-lg object-cover border border-slate-200">
+                                <p class="text-xs text-slate-500 mt-1">Imagem atual</p>
+                            </div>
+                        <?php endif; ?>
+                        <input type="file" name="imagem" accept="image/*"
                             class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#004e64] file:text-white hover:file:bg-[#003947] transition">
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                <div class="flex justify-between items-center mb-4 border-b pb-2">
-                    <h2 class="text-xl font-semibold text-[#004e64]">Cardápio Rápido</h2>
-                    <button type="button" onclick="addMenuItem()"
-                        class="text-sm text-[#004e64] font-semibold hover:underline">+ Adicionar Item</button>
-                </div>
-
-                <div id="menu-container" class="space-y-3">
-                    <div class="menu-item flex gap-3">
-                        <input type="text" name="prato_nome[]" placeholder="Nome do Prato"
-                            class="flex-1 rounded-md border-slate-300 shadow-sm text-sm">
-                        <input type="text" name="prato_preco[]" placeholder="Preço (R$)"
-                            class="w-32 rounded-md border-slate-300 shadow-sm text-sm">
                     </div>
                 </div>
             </div>
@@ -181,7 +199,7 @@ require_once '../components/head.php';
             <div class="flex justify-end pt-4 pb-12">
                 <button type="submit"
                     class="px-8 py-3 bg-[#004e64] text-white font-bold rounded-lg shadow-lg hover:bg-[#003947] transition transform hover:-translate-y-1">
-                    Cadastrar Restaurante
+                    <?= $isEdit ? 'Atualizar Restaurante' : 'Cadastrar Restaurante' ?>
                 </button>
             </div>
 
@@ -191,22 +209,6 @@ require_once '../components/head.php';
 
     <?php require_once '../components/footer.php'; ?>
 
-    <script>
-        function addMenuItem() {
-            const container = document.getElementById('menu-container');
-
-            const div = document.createElement('div');
-            div.className = 'menu-item flex gap-3 animate-fade-in-down'; // animate classe opcional se tiver config
-
-            div.innerHTML = `
-                <input type="text" name="prato_nome[]" placeholder="Nome do Prato" class="flex-1 rounded-md border-slate-300 shadow-sm text-sm">
-                <input type="text" name="prato_preco[]" placeholder="Preço (R$)" class="w-32 rounded-md border-slate-300 shadow-sm text-sm">
-                <button type="button" onclick="this.parentElement.remove()" class="text-red-500 hover:text-red-700 font-bold px-2">✕</button>
-            `;
-
-            container.appendChild(div);
-        }
-    </script>
 </body>
 
 </html>
