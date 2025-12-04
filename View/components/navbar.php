@@ -36,7 +36,18 @@ $infoSessao = $usuarioLogado ? SessaoService::obterInfoSessao() : null;
 
             <?php if ($usuarioLogado): ?>
                 <div class="flex items-center gap-3">
-                    <a href="/hackathon/View/pages/perfil.php" class="hover:text-[#00a6bf] transition">Meu Perfil</a>
+                    <a href="/hackathon/View/pages/perfil.php"
+                        class="hover:text-[#00a6bf] transition flex items-center gap-2">
+                        <?php if (!empty($infoSessao['foto_perfil'])): ?>
+                            <img src="<?php echo htmlspecialchars($infoSessao['foto_perfil']); ?>" alt="Perfil"
+                                class="h-8 w-8 rounded-full object-cover border border-gray-200">
+                        <?php else: ?>
+                            <div
+                                class="h-8 w-8 rounded-full bg-[#004e64] flex items-center justify-center text-white text-xs font-bold uppercase">
+                                <?php echo substr($infoSessao['email'], 0, 1); ?>
+                            </div>
+                        <?php endif; ?>
+                    </a>
                     <a href="/hackathon/Controller/sairController.php"
                         class="px-4 py-2 rounded-md border border-[#004e64] text-[#004e64] hover:bg-slate-50 transition shadow">
                         Sair
@@ -94,7 +105,16 @@ $infoSessao = $usuarioLogado ? SessaoService::obterInfoSessao() : null;
                         Sessão expira em <?php echo $infoSessao['expira_em']; ?>
                     </div>
                     <a href="/hackathon/View/pages/perfil.php"
-                        class="block hover:text-[#00a6bf] hover:pl-2 transition-all px-4 mb-2">
+                        class="block hover:text-[#00a6bf] hover:pl-2 transition-all px-4 mb-2 flex items-center gap-2">
+                        <?php if (!empty($infoSessao['foto_perfil'])): ?>
+                            <img src="<?php echo htmlspecialchars($infoSessao['foto_perfil']); ?>" alt="Perfil"
+                                class="h-6 w-6 rounded-full object-cover border border-gray-200">
+                        <?php else: ?>
+                            <div
+                                class="h-6 w-6 rounded-full bg-[#004e64] flex items-center justify-center text-white text-[10px] font-bold uppercase">
+                                <?php echo substr($infoSessao['email'], 0, 1); ?>
+                            </div>
+                        <?php endif; ?>
                         Meu Perfil
                     </a>
                     <a href="/hackathon/Controller/sairController.php"

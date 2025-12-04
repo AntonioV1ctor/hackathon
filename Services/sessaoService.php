@@ -19,6 +19,7 @@ class SessaoService
         $_SESSION['tipo'] = $usuario->tipo;
         $_SESSION['email'] = $usuario->email;
         $_SESSION['usuario'] = $usuario->email;
+        $_SESSION['foto_perfil'] = $usuario->foto_perfil ?? null;
         $_SESSION['login_time'] = time();
         $_SESSION['last_activity'] = time();
         $_SESSION['expires_at'] = time() + self::TEMPO_EXPIRACAO;
@@ -33,7 +34,7 @@ class SessaoService
         }
 
         $agora = time();
-        
+
         if ($agora > $_SESSION['expires_at']) {
             self::destruirSessao();
             return false;
@@ -72,6 +73,7 @@ class SessaoService
             'tipo' => $_SESSION['tipo'],
             'email' => $_SESSION['email'],
             'usuario' => $_SESSION['usuario'],
+            'foto_perfil' => $_SESSION['foto_perfil'] ?? null,
             'login_time' => $_SESSION['login_time'],
             'expires_at' => $_SESSION['expires_at'],
             'last_activity' => $_SESSION['last_activity']
@@ -128,6 +130,7 @@ class SessaoService
             'usuario_id' => $_SESSION['id'],
             'tipo_usuario' => $_SESSION['tipo'],
             'email' => $_SESSION['email'],
+            'foto_perfil' => $_SESSION['foto_perfil'] ?? null,
             'login_time' => date('Y-m-d H:i:s', $_SESSION['login_time']),
             'last_activity' => date('Y-m-d H:i:s', $_SESSION['last_activity']),
             'expires_at' => date('Y-m-d H:i:s', $_SESSION['expires_at']),
