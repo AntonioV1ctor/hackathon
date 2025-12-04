@@ -4,7 +4,7 @@
 
   <?php require_once 'View/components/navbar.php' ?>
 
-  <!-- HERO -->
+  <!-- DESTAQUE -->
   <?php require_once 'View/components/hero.php' ?>
 
 

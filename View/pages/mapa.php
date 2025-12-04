@@ -1,6 +1,6 @@
 <?php require_once '../components/head.php'; ?>
 
-<!-- Leaflet CSS -->
+<!-- CSS do Leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
@@ -10,10 +10,10 @@
 
     <main class="flex-grow relative">
 
-        <!-- Map Container -->
+        <!-- Container do Mapa -->
         <div id="map" class="absolute inset-0 w-full h-full z-0"></div>
 
-        <!-- Overlay Title (Optional) -->
+        <!-- Título Sobreposto (Opcional) -->
         <div
             class="absolute top-4 left-1/2 transform -translate-x-1/2 z-[500] bg-white/90 backdrop-blur px-6 py-2 rounded-full shadow-lg">
             <h1 class="text-lg font-bold text-[#004e64]">Mapa Gastronômico</h1>
@@ -27,13 +27,14 @@
     $restaurantes = $restauranteModel->listarRestaurantes();
     ?>
 
-    <!-- Leaflet JS -->
+    <!-- JS do Leaflet -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script>
         // Inicializa o mapa (focado no MS por padrão, ou ajustado dinamicamente)
-        var map = L.map('map').setView([-20.4697, -54.6201], 6); // Campo Grande/MS coordinates approx
+        // Coordenadas aproximadas de Campo Grande/MS
+        var map = L.map('map').setView([-20.4697, -54.6201], 6);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

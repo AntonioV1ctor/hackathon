@@ -75,11 +75,11 @@
             // Gerar campos de refeição dinamicamente
             checkboxes.forEach(cb => {
                 cb.addEventListener('change', (e) => {
-                    toggleRefeicao(e.target);
+                    alternarRefeicao(e.target);
                 });
             });
 
-            function toggleRefeicao(checkbox) {
+            function alternarRefeicao(checkbox) {
                 const cidade = checkbox.value;
                 // Sanitizar o nome da cidade para usar como ID (remover espaços e acentos)
                 const cidadeId = 'ref-' + cidade.replace(/[^a-zA-Z0-9]/g, '');
@@ -117,9 +117,10 @@
 
                 // Gerenciar visibilidade do título
                 let titulo = document.getElementById('titulo-refeicoes');
-                const temSelecionados = container.children.length > 0; // Check children count directly, but title might be one child
+                // Verificar contagem de filhos diretamente, mas o título pode ser um filho
+                const temSelecionados = container.children.length > 0;
 
-                // Better check: do we have any divs starting with ref-?
+                // Melhor verificação: temos alguma div começando com ref-?
                 const hasRefDivs = Array.from(container.children).some(child => child.id && child.id.startsWith('ref-'));
 
                 if (hasRefDivs) {
@@ -180,7 +181,7 @@
                             "nome" => $encontrado["nome"],
                             "cidade" => $cidade,
                             "refeicao" => $ref,
-                            "coord" => [$encontrado["lat"], $encontrado["log"]], // Note: Model usa 'log' e não 'lng'
+                            "coord" => [$encontrado["lat"], $encontrado["log"]], // Nota: Model usa 'log' e não 'lng'
                             "imagem" => $encontrado["caminho_imagem"] ?? '',
                             "id" => $encontrado["id"]
                         ];
@@ -220,7 +221,7 @@
                     <!-- Container para o mapa do roteiro -->
                     <div id="mapaRoteiro" class="w-full h-96 rounded-xl shadow-inner border z-0"></div>
 
-                    <!-- Leaflet CSS & JS (se ainda não estiverem carregados no head/footer, mas aqui garantimos) -->
+                    <!-- CSS e JS do Leaflet (se ainda não estiverem carregados no head/footer, mas aqui garantimos) -->
                     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
                     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
@@ -231,7 +232,7 @@
                             if (roteiro.length > 0) {
                                 const mapRoteiro = L.map('mapaRoteiro');
 
-                                // Adicionar tile layer
+                                // Adicionar camada de tiles
                                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                                     attribution: '&copy; OpenStreetMap contributors'
                                 }).addTo(mapRoteiro);
