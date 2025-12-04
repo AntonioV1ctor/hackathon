@@ -4,11 +4,10 @@
 
     <!-- LADO ESQUERDO -->
     <div class="hidden lg:flex w-1/2 relative">
-        <img 
+        <img
             src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=60"
             alt="Culinária do MS"
-            class="object-cover w-full h-full"
-        >
+            class="object-cover w-full h-full">
 
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
 
@@ -54,34 +53,32 @@
 
                 <div>
                     <label class="text-sm font-medium text-[#004e64]">Nome completo</label>
-                    <input 
+                    <input
                         id="nome"
                         name="nome"
                         type="text"
                         required
                         placeholder="Seu nome"
                         class="w-full mt-1 p-2 border rounded bg-white 
-                               focus:ring-2 focus:ring-[#00a6bf]"
-                    >
+                               focus:ring-2 focus:ring-[#00a6bf]">
                 </div>
 
                 <div>
                     <label class="text-sm font-medium text-[#004e64]">E-mail</label>
-                    <input 
+                    <input
                         id="email"
                         name="email"
                         type="email"
                         required
                         placeholder="email@exemplo.com"
                         class="w-full mt-1 p-2 border rounded bg-white 
-                               focus:ring-2 focus:ring-[#00a6bf]"
-                    >
+                               focus:ring-2 focus:ring-[#00a6bf]">
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="text-sm font-medium text-[#004e64]">Senha</label>
-                        <input 
+                        <input
                             id="senha"
                             name="senha"
                             type="password"
@@ -89,13 +86,12 @@
                             minlength="4"
                             placeholder="••••••••"
                             class="w-full mt-1 p-2 border rounded bg-white 
-                                   focus:ring-2 focus:ring-[#00a6bf]"
-                        >
+                                   focus:ring-2 focus:ring-[#00a6bf]">
                     </div>
 
                     <div>
                         <label class="text-sm font-medium text-[#004e64]">Confirmar senha</label>
-                        <input 
+                        <input
                             id="confirmar"
                             name="confirmar"
                             type="password"
@@ -103,17 +99,45 @@
                             minlength="4"
                             placeholder="••••••••"
                             class="w-full mt-1 p-2 border rounded bg-white 
-                                   focus:ring-2 focus:ring-[#00a6bf]"
-                        >
+                                   focus:ring-2 focus:ring-[#00a6bf]">
                     </div>
                 </div>
 
-                <button 
+                <div>
+                    <label class="text-sm font-medium text-[#004e64]">Pergunta de Segurança</label>
+                    <select
+                        id="pergunta_seguranca"
+                        name="pergunta_seguranca"
+                        required
+                        class="w-full mt-1 p-2 border rounded bg-white 
+                               focus:ring-2 focus:ring-[#00a6bf]">
+                        <option value="">Selecione uma pergunta</option>
+                        <option value="Qual foi o primeiro apelido que você recebeu?">Qual foi o primeiro apelido que você recebeu?</option>
+                        <option value="Qual o nome da primeira cidade onde você morou?">Qual o nome da primeira cidade onde você morou?</option>
+                        <option value="Qual o nome do seu primeiro pet?">Qual o nome do seu primeiro pet?</option>
+                        <option value="Qual o nome da sua primeira professora?">Qual o nome da sua primeira professora?</option>
+                        <option value="Qual o nome do seu melhor amigo de infância?">Qual o nome do seu melhor amigo de infância?</option>
+                        <option value="Qual o nome da rua onde você cresceu?">Qual o nome da rua onde você cresceu?</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="text-sm font-medium text-[#004e64]">Resposta de Segurança</label>
+                    <input
+                        id="resposta_seguranca"
+                        name="resposta_seguranca"
+                        type="text"
+                        required
+                        placeholder="Sua resposta"
+                        class="w-full mt-1 p-2 border rounded bg-white 
+                               focus:ring-2 focus:ring-[#00a6bf]">
+                </div>
+
+                <button
                     type="submit"
                     class="w-full py-2 bg-[#004e64] text-white rounded-md font-semibold 
                            hover:bg-[#003947] transition 
-                           focus:ring-2 focus:ring-[#00a6bf]"
-                >
+                           focus:ring-2 focus:ring-[#00a6bf]">
                     Criar conta
                 </button>
 

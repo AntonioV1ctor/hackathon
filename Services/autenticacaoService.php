@@ -1,15 +1,27 @@
 <?php
+require_once __DIR__ . '/sessaoService.php';
 
 class AutenticacaoService
 {
     public static function validarAcessoSemLogin()
     {
-        
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        if (SessaoService::usuarioEstaLogado()) {
+            header("Location: /hackathon/index.php");
+            exit;
         }
+    }
 
-        if (!empty($_SESSION['id']) && !empty($_SESSION['perfil'])) {
+    public static function validarAcessoComLogin()
+    {
+        if (!SessaoService::usuarioEstaLogado()) {
+            header("Location: /hackathon/View/pages/login.php");
+            exit;
+        }
+    }
+
+    public static function validarAcessoAdmin()
+    {
+        if (!SessaoService::usuarioEhAdmin()) {
             header("Location: /hackathon/index.php");
             exit;
         }

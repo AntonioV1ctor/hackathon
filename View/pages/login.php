@@ -1,4 +1,18 @@
-<?php require_once '../components/head.php' ?>
+<?php
+require_once '../components/head.php';
+require_once '../../Model/loginModel.php';
+
+$mostrarSeguranca = false;
+$perguntaSeguranca = '';
+
+if (isset($_SESSION['login_temp_email'])) {
+    $loginModel = new LoginModel();
+    $perguntaSeguranca = $loginModel->buscarPerguntaSeguranca($_SESSION['login_temp_email']);
+    if ($perguntaSeguranca) {
+        $mostrarSeguranca = true;
+    }
+}
+?>
 
 <body class="min-h-screen bg-[#f8fafc] flex">
 
@@ -32,9 +46,11 @@
                 </div>
 
                 <h1 class="text-2xl font-bold text-[#004e64] mt-3">
-                    Portal Administrativo
+                    <?php echo $mostrarSeguranca ? 'Verificação de Segurança' : 'Portal Administrativo'; ?>
                 </h1>
-                <p class="text-sm text-[#6b7280]">Acesse sua área de gestão</p>
+                <p class="text-sm text-[#6b7280]">
+                    <?php echo $mostrarSeguranca ? 'Responda sua pergunta de segurança' : 'Acesse sua área de gestão'; ?>
+                </p>
             </div>
 
             <?php
@@ -46,27 +62,52 @@
             }
             ?>
 
-            <form id="loginForm" action="../../Controller/loginController.php" method="POST" class="space-y-4">
+            <?php if ($mostrarSeguranca): ?>
+                <form id="segurancaForm" action="../../Controller/loginController.php" method="POST" class="space-y-4">
+                    <div>
+                        <label class="text-sm font-medium text-[#004e64]">Pergunta de Segurança</label>
+                        <div class="mt-1 p-3 border rounded bg-gray-50 text-sm text-[#6b7280]">
+                            <?php echo htmlspecialchars($perguntaSeguranca); ?>
+                        </div>
+                    </div>
 
-                <div>
-                    <label class="text-sm font-medium text-[#004e64]">E-mail</label>
-                    <input id="email" name="email" type="email" required placeholder="email@exemplo.com" class="w-full mt-1 p-2 border rounded bg-white 
+                    <div>
+                        <label class="text-sm font-medium text-[#004e64]">Resposta</label>
+                        <input id="resposta_seguranca" name="resposta_seguranca" type="text" required
+                            placeholder="Sua resposta" class="w-full mt-1 p-2 border rounded bg-white 
+                                   focus:ring-2 focus:ring-[#00a6bf]">
+                    </div>
+
+                    <button type="submit" class="w-full py-2 bg-[#004e64] text-white rounded-md font-semibold 
+                               hover:bg-[#003947] transition 
                                focus:ring-2 focus:ring-[#00a6bf]">
-                </div>
+                        Verificar
+                    </button>
+                </form>
+            <?php else: ?>
+                <form id="loginForm" action="../../Controller/loginController.php" method="POST" class="space-y-4">
 
-                <div>
-                    <label class="text-sm font-medium text-[#004e64]">Senha</label>
-                    <input id="password" name="senha" type="password" required minlength="4" placeholder="••••••••" class="w-full mt-1 p-2 border rounded bg-white 
+                    <div>
+                        <label class="text-sm font-medium text-[#004e64]">E-mail</label>
+                        <input id="email" name="email" type="email" required placeholder="email@exemplo.com" class="w-full mt-1 p-2 border rounded bg-white 
+                                   focus:ring-2 focus:ring-[#00a6bf]">
+                    </div>
+
+                    <div>
+                        <label class="text-sm font-medium text-[#004e64]">Senha</label>
+                        <input id="password" name="senha" type="password" required minlength="4" placeholder="••••••••"
+                            class="w-full mt-1 p-2 border rounded bg-white 
+                                   focus:ring-2 focus:ring-[#00a6bf]">
+                    </div>
+
+                    <button type="submit" class="w-full py-2 bg-[#004e64] text-white rounded-md font-semibold 
+                               hover:bg-[#003947] transition 
                                focus:ring-2 focus:ring-[#00a6bf]">
-                </div>
+                        Entrar
+                    </button>
 
-                <button type="submit" class="w-full py-2 bg-[#004e64] text-white rounded-md font-semibold 
-                           hover:bg-[#003947] transition 
-                           focus:ring-2 focus:ring-[#00a6bf]">
-                    Entrar
-                </button>
-
-            </form>
+                </form>
+            <?php endif; ?>
 
             <p class="text-center text-sm text-[#6b7280] mt-4">
                 Não tem conta?

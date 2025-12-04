@@ -1,7 +1,8 @@
-<?php 
-require_once '../components/head.php'; 
+<?php
+require_once '../../init.php';
+AutenticacaoService::validarAcessoAdmin();
+require_once '../components/head.php';
 require_once '../../Model/RestauranteModel.php';
-
 $restauranteModel = new RestauranteModel();
 $restaurantes = $restauranteModel->listarRestaurantes();
 ?>
@@ -17,9 +18,9 @@ $restaurantes = $restauranteModel->listarRestaurantes();
                 <h1 class="text-3xl font-bold text-[#004e64]">Administração</h1>
                 <p class="text-slate-500">Gerencie os restaurantes cadastrados no sistema.</p>
             </div>
-            
-            <a href="/hackathon/View/pages/cadastrarRestaurante.php" 
-               class="bg-[#004e64] hover:bg-[#003947] text-white font-bold py-2 px-6 rounded-lg shadow transition flex items-center gap-2">
+
+            <a href="/hackathon/View/pages/cadastrarRestaurante.php"
+                class="bg-[#004e64] hover:bg-[#003947] text-white font-bold py-2 px-6 rounded-lg shadow transition flex items-center gap-2">
                 <span>+</span> Adicionar Restaurante
             </a>
         </div>
@@ -68,7 +69,9 @@ $restaurantes = $restauranteModel->listarRestaurantes();
                                             <a href="/hackathon/View/pages/cadastrarRestaurante.php?id=<?= $r['id'] ?? '' ?>" 
                                                class="p-2 text-blue-600 hover:bg-blue-50 rounded transition" title="Editar">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                                    </path>
                                                 </svg>
                                             </a>
                                             <?php if (isset($r['id'])): ?>
@@ -90,13 +93,17 @@ $restaurantes = $restauranteModel->listarRestaurantes();
                     </tbody>
                 </table>
             </div>
-            
+
             <!-- Pagination Mock -->
             <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex items-center justify-between">
                 <span class="text-sm text-slate-500">Mostrando <?= count($restaurantes) ?> resultados</span>
                 <div class="flex gap-1">
-                    <button class="px-3 py-1 rounded border border-slate-300 bg-white text-slate-500 text-sm disabled:opacity-50" disabled>Anterior</button>
-                    <button class="px-3 py-1 rounded border border-slate-300 bg-white text-slate-500 text-sm disabled:opacity-50" disabled>Próxima</button>
+                    <button
+                        class="px-3 py-1 rounded border border-slate-300 bg-white text-slate-500 text-sm disabled:opacity-50"
+                        disabled>Anterior</button>
+                    <button
+                        class="px-3 py-1 rounded border border-slate-300 bg-white text-slate-500 text-sm disabled:opacity-50"
+                        disabled>Próxima</button>
                 </div>
             </div>
         </div>

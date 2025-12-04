@@ -3,11 +3,13 @@ USE saboresdoturismo;
 -- ============================
 -- 1) USUÁRIO ADMIN
 -- ============================
-INSERT INTO usuarios (nome, email, senha_hash, tipo)
+INSERT INTO usuarios (nome, email, senha_hash, pergunta_seguranca, resposta_seguranca_hash, tipo)
 VALUES (
   'Administrador',
   'admin@sabores.ms.gov',
-  '$2y$10$ZqY6mV8ZpQ/xPqQFzP8f3OUi1JgKqH7qv8G5bTCVG3YlFQwJ8j6uW', -- senha: admin123
+  '$2y$12$UE951o.8kFPiv.s81T9YruKOg/ezCBtQ.6y8YTEpyqTe3V/wVwc62', -- Senha: Admin@123
+  'Qual o nome da primeira cidade onde você morou?',
+  '$2y$12$ADeSgXUxvdepVIGN1ZVTZOBc.25KnGyHf9fYbROVzXYeUH/dMtDgS', -- Resposta: Campo Grande
   'admin'
 );
 

@@ -10,8 +10,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $email = $_POST['email'] ?? '';
         $senha = $_POST['senha'] ?? '';
         $confirmar = $_POST['confirmar'] ?? '';
+        $perguntaSeguranca = $_POST['pergunta_seguranca'] ?? '';
+        $respostaSeguranca = $_POST['resposta_seguranca'] ?? '';
 
-        if (empty($nome) || empty($email) || empty($senha) || empty($confirmar)) {
+        if (empty($nome) || empty($email) || empty($senha) || empty($confirmar) || empty($perguntaSeguranca) || empty($respostaSeguranca)) {
             throw new Exception('Preencha todos os campos!');
         }
 
@@ -21,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $usuarioModel = new UsuarioModel();
 
-        if ($usuarioModel->cadastrarUsuario($nome, $email, $senha)) {
+        if ($usuarioModel->cadastrarUsuario($nome, $email, $senha, $perguntaSeguranca, $respostaSeguranca)) {
             $_SESSION['type'] = 'sucesso';
             $_SESSION['message'] = 'Conta criada com sucesso! Faça login.';
             header("Location: /hackathon/View/pages/login.php");
