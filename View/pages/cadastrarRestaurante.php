@@ -7,6 +7,8 @@ $sucesso = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Aqui entraria o INSERT no banco de dados
     $sucesso = true;
+}
+
 require_once '../../Model/RestauranteModel.php';
 
 $restauranteModel = new RestauranteModel();
