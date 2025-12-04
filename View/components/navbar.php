@@ -35,9 +35,6 @@ $infoSessao = $usuarioLogado ? SessaoService::obterInfoSessao() : null;
 
             <?php if ($usuarioLogado): ?>
             <div class="flex items-center gap-3">
-                <div class="text-xs text-slate-500 hidden md:block">
-                    Sessão expira em <?php echo $infoSessao['expira_em']; ?>
-                </div>
                 <a href="/hackathon/Controller/sairController.php"
                     class="px-4 py-2 rounded-md border border-[#004e64] text-[#004e64] hover:bg-slate-50 transition shadow">
                     Sair
