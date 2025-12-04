@@ -15,7 +15,7 @@ $infoSessao = $usuarioLogado ? SessaoService::obterInfoSessao() : null;
 
             <div>
                 <h1 class="text-lg font-bold text-[#004e64] group-hover:text-[#007889] transition">
-                    Gastronomia MS
+                    Sabores do Turismo
                 </h1>
                 <p class="text-xs text-[#6b7280]">Turismo gastronômico • Mato Grosso do Sul</p>
             </div>
