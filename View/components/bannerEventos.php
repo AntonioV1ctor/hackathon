@@ -1,17 +1,16 @@
 <?php
-// MOCK de eventos
 $eventos = [
     [
-        "titulo" => "Festival Gastronômico de Bonito",
-        "data"   => "12 a 15 de Março",
-        "local"  => "Bonito - MS",
-        "img"    => "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&w=1200"
+        "titulo" => "Festival da Culinária Sul-Mato-Grossense",
+        "data"   => "10 a 11 de Outubro",
+        "local"  => "Campo Grande - MS",
+        "img"    => "/hackathon/view/assets/img/eventos/cg.jpg"
     ],
     [
-        "titulo" => "Feira do Peixe Pantaneiro",
+        "titulo" => "Festival de Inverno",
         "data"   => "22 a 24 de Abril",
-        "local"  => "Corumbá - MS",
-        "img"    => "https://images.unsplash.com/photo-1533777324565-a040eb52fac1?auto=format&w=1200"
+        "local"  => "Bonito - MS",
+        "img"    => "/hackathon/view/assets/img/eventos/bnt.jpeg"
     ],
     [
         "titulo" => "Semana da Culinária Sul-Mato-Grossense",

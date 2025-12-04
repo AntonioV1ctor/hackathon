@@ -6,7 +6,7 @@ class Database
     private $port = "3306";
     private $dbName = "saboresdoturismo";
     private $user = "root";
-    private $password = "";
+    private $password = "010206";
 
     public function conectar()
     {

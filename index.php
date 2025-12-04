@@ -4,7 +4,7 @@
 
   <?php require_once 'View/components/navbar.php' ?>
 
-  <!-- HERO -->
+  <!-- DESTAQUE -->
   <?php require_once 'View/components/hero.php' ?>
 
 
@@ -50,6 +50,7 @@
 
     <?php require_once 'View/components/bannerEventos.php' ?>
 
+    <?php require_once 'View/components/bannerMapa.php' ?>
 
     <?php require_once 'View/components/modal.php' ?>
   </main>
