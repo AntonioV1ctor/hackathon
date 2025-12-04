@@ -46,7 +46,7 @@ if (isset($_SESSION['login_temp_email'])) {
                 </div>
 
                 <h1 class="text-2xl font-bold text-[#004e64] mt-3">
-                    <?php echo $mostrarSeguranca ? 'Verificação de Segurança' : 'Portal Administrativo'; ?>
+                    <?php echo $mostrarSeguranca ? 'Verificação de Segurança' : 'Login'; ?>
                 </h1>
                 <p class="text-sm text-[#6b7280]">
                     <?php echo $mostrarSeguranca ? 'Responda sua pergunta de segurança' : 'Acesse sua área de gestão'; ?>

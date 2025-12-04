@@ -10,6 +10,46 @@ A principal stack tecnológica do projeto é composta pelas seguintes tecnologia
 - **MySQL**: Banco de dados relacional para armazenamento de dados de vouchers, usuários e transações, garantindo integridade e eficiência.
 - **HTML5**: Estrutura básica da interface, garantindo uma base semântica e acessível.
 - **Tailwind CSS**: Framework CSS utilitário que acelera o desenvolvimento da interface, oferecendo flexibilidade e design responsivo com poucas linhas de código.
+- **Leaflet.js**: Biblioteca JavaScript para mapas interativos.
+
+## Pré-requisitos
+Para rodar este projeto localmente, você precisará de:
+- **XAMPP** (ou qualquer servidor web com PHP e MySQL)
+- **PHP 8.0** ou superior
+- **MySQL**
+
+## Instalação e Configuração
+
+1.  **Clonar o Repositório**
+    ```bash
+    git clone https://github.com/seu-usuario/hackathon.git
+    ```
+
+2.  **Mover para o Diretório Web**
+    Mova a pasta do projeto para o diretório raiz do seu servidor web.
+    - No XAMPP: `C:\xampp\htdocs\hackathon`
+
+3.  **Configurar o Banco de Dados**
+    - Abra o phpMyAdmin (geralmente em `http://localhost/phpmyadmin`).
+    - Crie um banco de dados (ex: `hackathon`).
+    - Importe o arquivo SQL localizado em:
+      `config/db/carga/1-carga.sql`
+
+4.  **Configurar a Conexão**
+    Verifique e ajuste as credenciais do banco de dados no arquivo:
+    `config/database.php`
+    ```php
+    // Exemplo de configuração
+    $this->host = "localhost";
+    $this->db_name = "hackathon"; // Confirme o nome do banco
+    $this->username = "root";
+    $this->password = "";
+    ```
+
+## Como Usar
+1.  Inicie os serviços **Apache** e **MySQL** no painel de controle do XAMPP.
+2.  Acesse o projeto no seu navegador:
+    [http://localhost/hackathon](http://localhost/hackathon)
 
 ## Sistema de Autenticação e Sessões
 
@@ -20,8 +60,7 @@ O sistema implementa um robusto mecanismo de autenticação com controle de expi
 - **Expiração automática**: Sessões expiram após 2 horas de inatividade
 - **Renovação automática**: Sessão é renovada automaticamente se houver atividade dentro de 30 minutos
 - **Proteção de rotas**: Páginas administrativas exigem autenticação válida
-- **Indicador visual**: Mostra tempo restante da sessão no navbar
-- **Proteção automática**: Logout forçado quando sessão expira
+ - **Proteção automática**: Logout forçado quando sessão expira
 
 ### Arquitetura
 - **SessaoService**: Classe responsável por gerenciar sessões com timestamps de expiração
@@ -29,6 +68,6 @@ O sistema implementa um robusto mecanismo de autenticação com controle de expi
 - **init.php**: Arquivo de inicialização que verifica expiração em todas as páginas
 
 ## Integrantes
-- **Adercio Barbuio**  
-- **Antônio Victor** 
-- **Rhyan Komm** 
+- **Adercio Barbuio**
+- **Antônio Victor**
+- **Rhyan Komm**

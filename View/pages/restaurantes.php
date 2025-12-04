@@ -35,6 +35,14 @@
 
                 // BUSCAR NO BANCO
                 $filtrados = $restauranteModel->buscarRestaurantesPorFiltro($filtros);
+
+                // BUSCAR VISITADOS SE LOGADO
+                $visitadosIds = [];
+                if (isset($_SESSION['id'])) {
+                    require_once '../../Model/usuarioModel.php';
+                    $usuarioModel = new UsuarioModel();
+                    $visitadosIds = $usuarioModel->getIdsRestaurantesVisitados($_SESSION['id']);
+                }
                 ?>
 
                 <!-- GRID -->
@@ -53,6 +61,8 @@
                         // O componente espera: img, nome, cidade, culinaria, rating, preco, desc, id
                         // No banco: caminho_imagem, nome, cidade, categoria, media_avaliacao (calculado), faixa_preco, descricao, id
                     
+                        $visitado = in_array($r['id'], $visitadosIds);
+
                         // Tratamento do preço para exibir cifrões
                         echo cardRestaurante(
                             $r["caminho_imagem"] ?? 'https://via.placeholder.com/400x300', // Fallback image
@@ -62,7 +72,8 @@
                             round($r["media_avaliacao"] ?? 0), // Arredonda a média
                             $r["faixa_preco"], // Passa o valor cru (int ou string), o componente trata
                             $r["descricao"],
-                            $r["id"]
+                            $r["id"],
+                            $visitado
                         );
                     }
                     ?>
