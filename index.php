@@ -21,62 +21,26 @@
 
         <?php
         require_once 'View/components/cardRestaurante.php';
+        require_once 'Model/RestauranteModel.php';
 
-        // MOCK PARA TESTAR
-        $restaurantes = [
-          [
-            "id" => 1,
-            "nome" => "Casa do João",
-            "cidade" => "Bonito",
-            "culinaria" => "Pantaneira",
-            "rating" => 5,
-            "preco" => 2,
-            "img" => "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&w=900&q=60",
-            "desc" => "Pratos típicos pantaneiros com ingredientes locais."
-          ],
-          [
-            "id" => 2,
-            "nome" => "Tayama Sushi MS",
-            "cidade" => "Campo Grande",
-            "culinaria" => "Japonês / Sushi",
-            "rating" => 4,
-            "preco" => 3,
-            "img" => "https://images.unsplash.com/photo-1555992336-cbfcd98a6e56?auto=format&w=900&q=60",
-            "desc" => "Sushi com toque regional e peixes frescos."
-          ],
-          [
-            "id" => 3,
-            "nome" => "Churrascaria do Sul",
-            "cidade" => "Campo Grande",
-            "culinaria" => "Churrasco",
-            "rating" => 5,
-            "preco" => 3,
-            "img" => "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&w=900&q=60",
-            "desc" => "Rodízio premium com cortes nobres."
-          ],
-          [
-            "id" => 4,
-            "nome" => "Bistrô do Pantanal",
-            "cidade" => "Corumbá",
-            "culinaria" => "Peixes & Regional",
-            "rating" => 4,
-            "preco" => 2,
-            "img" => "https://images.unsplash.com/photo-1458642849426-cfb724f15ef7?auto=format&w=900&q=60",
-            "desc" => "Peixes locais e pratos criativos do Pantanal."
-          ]
-        ];
+        $restauranteModel = new RestauranteModel();
+        $restaurantes = $restauranteModel->listarDestaques();
 
-        foreach ($restaurantes as $r) {
-          echo cardRestaurante(
-            $r["img"],
-            $r["nome"],
-            $r["cidade"],
-            $r["culinaria"],
-            $r["rating"],
-            $r["preco"],
-            $r["desc"],
-            $r["id"]
-          );
+        if (empty($restaurantes)) {
+          echo '<p class="text-slate-500 col-span-full text-center">Nenhum restaurante em destaque no momento.</p>';
+        } else {
+          foreach ($restaurantes as $r) {
+            echo cardRestaurante(
+              $r["caminho_imagem"] ?? 'https://via.placeholder.com/400x300',
+              $r["nome"] ?? 'Sem nome',
+              $r["cidade"] ?? '',
+              $r["categoria"] ?? '',
+              $r["media_avaliacao"] ?? 0,
+              $r["faixa_preco"] ?? 1,
+              $r["descricao"] ?? '',
+              $r["id"] ?? 0
+            );
+          }
         }
         ?>
 

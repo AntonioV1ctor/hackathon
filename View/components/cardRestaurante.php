@@ -18,10 +18,26 @@ function cardRestaurante($img, $nome, $cidade, $culinaria, $rating, $preco, $des
 {
     // Monta estrelas
     $starsFilled = str_repeat("★", $rating);
-    $starsEmpty  = str_repeat("☆", 5 - $rating);
+    $starsEmpty = str_repeat("☆", 5 - $rating);
 
-    // Preço como R$, R$$, R$$$
-    $priceLabel = str_repeat("R$", $preco);
+    // Tratamento para preço (garantir int)
+    if (is_string($preco)) {
+        $preco = strtolower($preco);
+        if ($preco === 'barato')
+            $preco = 1;
+        elseif ($preco === 'moderado')
+            $preco = 2;
+        elseif ($preco === 'caro')
+            $preco = 3;
+        elseif ($preco === 'sofisticado')
+            $preco = 4;
+        else
+            $preco = (int) $preco; // Tenta converter numérico
+    }
+    // Garante range 1-4
+    $preco = max(1, min(4, (int) $preco));
+
+    $priceLabel = str_repeat("$", $preco);
 
     return "
     <article class='bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden'>

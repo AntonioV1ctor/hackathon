@@ -2,30 +2,9 @@
 require_once '../../init.php';
 AutenticacaoService::validarAcessoAdmin();
 require_once '../components/head.php';
-
-// Mock data (same as restaurants.php for consistency)
-$restaurantes = [
-    [
-        "id" => 1,
-        "nome" => "Casa do João",
-        "cidade" => "Bonito",
-        "culinaria" => "Pantaneira",
-        "preco" => 2,
-        "rating" => 5,
-        "img" => "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&w=900",
-        "desc" => "Pratos típicos regionais."
-    ],
-    [
-        "id" => 2,
-        "nome" => "Tayama Sushi",
-        "cidade" => "Campo Grande",
-        "culinaria" => "Japonês",
-        "preco" => 3,
-        "rating" => 4,
-        "img" => "https://images.unsplash.com/photo-1555992336-cbfcd98a6e56?auto=format&w=900",
-        "desc" => "Sushi com toque regional."
-    ],
-];
+require_once '../../Model/RestauranteModel.php';
+$restauranteModel = new RestauranteModel();
+$restaurantes = $restauranteModel->listarRestaurantes();
 ?>
 
 <body class="bg-slate-100 font-sans">
@@ -69,41 +48,43 @@ $restaurantes = [
                         <?php else: ?>
                             <?php foreach ($restaurantes as $r): ?>
                                 <tr class="hover:bg-slate-50 transition">
-                                    <td class="px-6 py-4 font-mono text-xs text-slate-400">#<?= $r['id'] ?></td>
+                                    <td class="px-6 py-4 font-mono text-xs text-slate-400">#<?= $r['id'] ?? '?' ?></td>
                                     <td class="px-6 py-4 font-medium text-slate-800">
                                         <div class="flex items-center gap-3">
-                                            <img src="<?= $r['img'] ?>" alt=""
-                                                class="w-10 h-10 rounded-full object-cover border border-slate-200">
-                                            <span><?= $r['nome'] ?></span>
+                                            <img src="<?= !empty($r['caminho_imagem']) ? $r['caminho_imagem'] : 'https://via.placeholder.com/40' ?>" alt="" class="w-10 h-10 rounded-full object-cover border border-slate-200">
+                                            <span><?= $r['nome'] ?? 'Sem nome' ?></span>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4"><?= $r['cidade'] ?></td>
+                                    <td class="px-6 py-4"><?= $r['cidade'] ?? '-' ?></td>
                                     <td class="px-6 py-4">
                                         <span class="px-2 py-1 rounded-full bg-slate-100 text-xs font-medium text-slate-600">
-                                            <?= $r['culinaria'] ?>
+                                            <?= $r['categoria'] ?? 'Sem categoria' ?>
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 text-emerald-600 font-medium">
-                                        <?= str_repeat('$', $r['preco']) ?>
+                                        <?= isset($r['faixa_preco']) ? str_repeat('$', (int)$r['faixa_preco']) : '-' ?>
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center justify-center gap-2">
-                                            <a href="/hackathon/View/pages/cadastrarRestaurante.php?id=<?= $r['id'] ?>"
-                                                class="p-2 text-blue-600 hover:bg-blue-50 rounded transition" title="Editar">
+                                            <a href="/hackathon/View/pages/cadastrarRestaurante.php?id=<?= $r['id'] ?? '' ?>" 
+                                               class="p-2 text-blue-600 hover:bg-blue-50 rounded transition" title="Editar">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
                                                     </path>
                                                 </svg>
                                             </a>
-                                            <button onclick="confirmDelete(<?= $r['id'] ?>)"
-                                                class="p-2 text-red-600 hover:bg-red-50 rounded transition" title="Excluir">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                    </path>
-                                                </svg>
-                                            </button>
+                                            <?php if (isset($r['id'])): ?>
+                                            <form action="../../Controller/restauranteController.php" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este restaurante?');" style="display:inline;">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="id" value="<?= $r['id'] ?>">
+                                                <button type="submit" class="p-2 text-red-600 hover:bg-red-50 rounded transition" title="Excluir">
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                            <?php endif; ?>
                                         </div>
                                     </td>
                                 </tr>
@@ -131,16 +112,5 @@ $restaurantes = [
 
     <?php require_once '../components/footer.php'; ?>
 
-    <script>
-        function confirmDelete(id) {
-            if (confirm('Tem certeza que deseja excluir este restaurante?')) {
-                // Aqui entraria a lógica de exclusão (AJAX ou redirect)
-                alert('Simulação: Restaurante ' + id + ' excluído!');
-                // window.location.href = 'delete_restaurant.php?id=' + id;
-            }
-        }
-    </script>
-
 </body>
-
 </html>
