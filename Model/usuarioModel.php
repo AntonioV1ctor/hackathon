@@ -40,12 +40,17 @@ class UsuarioModel
 
     public function findUsuarioByEmail($email)
     {
-        $sql = "SELECT * FROM usuarios WHERE email = :email";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
+        try {
+            $sql = "SELECT * FROM usuarios WHERE email = :email";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar usuário por email: " . $e->getMessage());
+            return false;
+        }
     }
 
 }
