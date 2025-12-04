@@ -1,17 +1,58 @@
-INSERT INTO cidades (nome, slug, descricao) VALUES
-('Campo Grande', 'campo-grande', 'Capital do estado de MS.'),
-('Bonito', 'bonito', 'Um dos principais destinos turísticos de ecoturismo no Brasil.'),
-('Corumbá', 'corumba', 'Cidade histórica e entrada do Pantanal.');
+USE saboresdoturismo;
 
-INSERT INTO destinos_turisticos (nome, slug, cidade_id, categoria, descricao) VALUES
-('Gruta do Lago Azul', 'gruta-lago-azul', 2, 'natureza', 'Principal cartão postal de Bonito.'),
-('Estrada Parque Pantanal', 'estrada-parque-pantanal', 3, 'natureza', 'Acesso ao Pantanal com vida selvagem.'),
-('Parque das Nações Indígenas', 'parque-nacoes', 1, 'natureza', 'Parque urbano em Campo Grande.');
+-- ============================
+-- 1) USUÁRIO ADMIN
+-- ============================
+INSERT INTO usuarios (nome, email, senha_hash, tipo)
+VALUES (
+  'Administrador',
+  'admin@sabores.ms.gov',
+  '$2y$10$ZqY6mV8ZpQ/xPqQFzP8f3OUi1JgKqH7qv8G5bTCVG3YlFQwJ8j6uW', -- senha: admin123
+  'admin'
+);
 
-INSERT INTO restaurantes (nome, slug, cidade_id, tipo_cozinha, faixa_preco) VALUES
-('Casa do Peixe', 'casa-do-peixe', 1, 'Pantaneira', 'medio'),
-('Juanita', 'juanita', 2, 'Peixes e Carnes', 'medio'),
-('Churrascaria do Gaúcho', 'churrascaria-gaucho', 1, 'Churrasco', 'alto');
+-- ============================
+-- 2) RESTAURANTES DO MS
+-- ============================
+INSERT INTO restaurantes 
+(nome, cidade, categoria, descricao, endereco, lat, log, horario_funcionamento, faixa_preco, caminho_imagem)
+VALUES
+('Casa do Peixe Pantaneiro', 'Campo Grande', 'Peixes e Frutos do Mar',
+ 'Especializado em pacu na brasa e pintado à urucum, com ambiente rústico e clima pantaneiro.',
+ 'Av. Afonso Pena, 4567', '-20.4697', '-54.6208', '11h - 22h', 'moderado', '/img/restaurantes/pantaneiro.jpg'),
 
-INSERT INTO eventos (nome, slug, cidade_id, descricao, data_inicio) VALUES
-('Festival do Sobá', 'festival-soba', 1, 'Evento gastronômico tradicional.', '2025-08-10');
+('Churrascaria Boi de Ouro', 'Dourados', 'Churrascaria',
+ 'Uma das mais tradicionais da região, conhecida pelo costelão fogo de chão.',
+ 'Rua Cuiabá, 1290', '-22.2231', '-54.8120', '11h - 23h', 'caro', '/img/restaurantes/boideouro.jpg'),
+
+('Sabor Caseiro da Dona Maria', 'Três Lagoas', 'Comida Caseira',
+ 'Buffet variado com comidas típicas regionais, incluindo arroz carreteiro e macarrão pantaneiro.',
+ 'Rua João Silva, 230', '-20.7841', '-51.7036', '10h - 14h', 'barato', '/img/restaurantes/donamaria.jpg'),
+
+('Pantanal Sushi House', 'Campo Grande', 'Japonesa',
+ 'Combinação de culinária japonesa moderna com ingredientes regionais, incluindo sushi de pintado.',
+ 'Rua Ceará, 840', '-20.4542', '-54.6004', '18h - 23h', 'moderado', '/img/restaurantes/sushihouse.jpg'),
+
+('La Trattoria Sul-Mato-Grossense', 'Campo Grande', 'Italiano/Massas',
+ 'Restaurante italiano sofisticado com massas artesanais e carta de vinhos selecionados.',
+ 'Av. Mato Grosso, 3121', '-20.4548', '-54.5880', '19h - 23h', 'sofisticado', '/img/restaurantes/trattoria.jpg'),
+
+('Burger Pantanal', 'Naviraí', 'Lanches e Porções',
+ 'Hamburgueria artesanal com ingredientes regionais e combinações exclusivas.',
+ 'Rua das Palmeiras, 88', '-23.0614', '-54.1997', '17h - 00h', 'moderado', '/img/restaurantes/burgerpantanal.jpg'),
+
+('Rancho do Peixe', 'Bonito', 'Peixes e Frutos do Mar',
+ 'Peixes frescos da região com pratos tradicionais como pintado grelhado e moqueca pantaneira.',
+ 'Rua Monte Castelo, 55', '-21.1269', '-56.4830', '11h - 22h', 'caro', '/img/restaurantes/ranchodopeixe.jpg'),
+
+('Sabores do Cerrado', 'Coxim', 'Regional',
+ 'Restaurante regional com pratos típicos feitos com ingredientes locais.',
+ 'Av. Presidente Vargas, 1010', '-18.5018', '-54.7607', '10h - 15h', 'barato', '/img/restaurantes/saborescerrado.jpg'),
+
+('Templo do Churrasco Gaúcho', 'Ponta Porã', 'Churrascaria',
+ 'Churrasco tradicional com cortes nobres e rodízio completo.',
+ 'BR-463, Km 4', '-22.5292', '-55.7201', '11h - 23h', 'caro', '/img/restaurantes/gaucho.jpg'),
+
+('Estação Regional', 'Aquidauana', 'Regional',
+ 'Culinária típica com destaque para o arroz carreteiro, sopa paraguaia e farofa de banana.',
+ 'Rua Bodoquena, 333', '-20.4639', '-55.7867', '10h - 21h', 'moderado', '/img/restaurantes/estacaoregional.jpg');

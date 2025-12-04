@@ -18,10 +18,26 @@ function cardRestaurante($img, $nome, $cidade, $culinaria, $rating, $preco, $des
 {
     // Monta estrelas
     $starsFilled = str_repeat("★", $rating);
-    $starsEmpty  = str_repeat("☆", 5 - $rating);
+    $starsEmpty = str_repeat("☆", 5 - $rating);
 
-    // Preço como R$, R$$, R$$$
-    $priceLabel = str_repeat("R$", $preco);
+    // Tratamento para preço (garantir int)
+    if (is_string($preco)) {
+        $preco = strtolower($preco);
+        if ($preco === 'barato')
+            $preco = 1;
+        elseif ($preco === 'moderado')
+            $preco = 2;
+        elseif ($preco === 'caro')
+            $preco = 3;
+        elseif ($preco === 'sofisticado')
+            $preco = 4;
+        else
+            $preco = (int) $preco; // Tenta converter numérico
+    }
+    // Garante range 1-4
+    $preco = max(1, min(4, (int) $preco));
+
+    $priceLabel = str_repeat("$", $preco);
 
     return "
     <article class='bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden'>
@@ -34,15 +50,13 @@ function cardRestaurante($img, $nome, $cidade, $culinaria, $rating, $preco, $des
                 <h3 class='text-lg font-semibold text-[#004e64]'>$nome</h3>
                 <p class='text-sm text-slate-500'>$cidade • $culinaria</p>
 
-                <div class='mt-2 text-[#f2c14e] text-sm'>
-                    $starsFilled$starsEmpty
-                </div>
+            
             </div>
 
             <p class='text-sm text-slate-600 mt-2 line-clamp-2'>$desc</p>
 
             <div class='flex items-center justify-between mt-3'>
-                <a href='/hackathon/view/pages/detalhesRestaurante.php?id=$id' 
+                <a href='/hackathon/View/pages/detalhesRestaurante.php?id=$id' 
                    class='text-sm font-semibold text-[#00a6bf] hover:underline'>
                     Detalhes →
                 </a>

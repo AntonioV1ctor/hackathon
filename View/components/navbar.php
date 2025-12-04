@@ -26,11 +26,11 @@ $isAdmin = isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin';
 
         <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-[#6b7280]">
             <a href="/hackathon" class="hover:text-[#00a6bf] transition">Início</a>
-            <a href="/hackathon/view/pages/restaurantes.php" class="hover:text-[#00a6bf] transition">Restaurantes</a>
-            <a href="/hackathon/view/pages/roteiro.php" class="hover:text-[#00a6bf] transition">Roteiros</a>
+            <a href="/hackathon/View/pages/restaurantes.php" class="hover:text-[#00a6bf] transition">Restaurantes</a>
+            <a href="/hackathon/View/pages/roteiro.php" class="hover:text-[#00a6bf] transition">Roteiros</a>
 
             <?php if ($isAdmin): ?>
-                <a href="/hackathon/View/pages/Administracao.php" 
+                <a href="/hackathon/View/pages/administracao.php" 
                    class="text-emerald-600 font-bold hover:text-emerald-700 transition flex items-center gap-1">
                    Administração
                 </a>
@@ -42,7 +42,7 @@ $isAdmin = isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin';
                     Sair
                 </a>
             <?php else: ?>
-                <a href="/hackathon/view/pages/login.php"
+                <a href="/hackathon/View/pages/login.php"
                     class="px-4 py-2 rounded-md bg-[#004e64] text-white hover:bg-[#003947] transition shadow">
                     Entrar
                 </a>
@@ -65,15 +65,15 @@ $isAdmin = isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin';
             <a href="/hackathon" class="block hover:text-[#00a6bf] hover:pl-2 transition-all">
                 Início
             </a>
-            <a href="/hackathon/view/pages/restaurantes.php" class="block hover:text-[#00a6bf] hover:pl-2 transition-all">
+            <a href="/hackathon/View/pages/restaurantes.php" class="block hover:text-[#00a6bf] hover:pl-2 transition-all">
                 Restaurantes
             </a>
-            <a href="/hackathon/view/pages/roteiro.php" class="block hover:text-[#00a6bf] hover:pl-2 transition-all">
+            <a href="/hackathon/View/pages/roteiro.php" class="block hover:text-[#00a6bf] hover:pl-2 transition-all">
                 Roteiros
             </a>
 
             <?php if ($isAdmin): ?>
-                <a href="/hackathon/View/pages/Administracao.php" 
+                <a href="/hackathon/View/pages/administracao.php" 
                    class="block text-emerald-600 font-bold hover:pl-2 transition-all">
                    Administração
                 </a>
@@ -86,7 +86,7 @@ $isAdmin = isset($_SESSION['tipo']) && $_SESSION['tipo'] === 'admin';
                     Sair da conta
                 </a>
             <?php else: ?>
-                <a href="/hackathon/view/pages/login.php" class="block text-[#004e64] font-bold hover:pl-2 transition-all">
+                <a href="/hackathon/View/pages/login.php" class="block text-[#004e64] font-bold hover:pl-2 transition-all">
                     Entrar na conta
                 </a>
             <?php endif; ?>

@@ -38,14 +38,25 @@
                 <p class="text-sm text-[#6b7280]">É rápido e gratuito</p>
             </div>
 
-            <div id="alert" class="hidden mb-4 p-3 rounded bg-red-100 text-red-700 text-sm"></div>
+            <?php
+            if (isset($_SESSION['message'])) {
+                $type = $_SESSION['type'] ?? 'erro';
+                $colorClass = $type === 'sucesso' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
+                echo "<div id='alert' class='mb-4 p-3 rounded $colorClass text-sm'>{$_SESSION['message']}</div>";
+                unset($_SESSION['message']);
+                unset($_SESSION['type']);
+            } else {
+                echo '<div id="alert" class="hidden mb-4 p-3 rounded bg-red-100 text-red-700 text-sm"></div>';
+            }
+            ?>
 
-            <form id="cadForm" class="space-y-4">
+            <form id="cadForm" action="../../Controller/cadastroController.php" method="POST" class="space-y-4">
 
                 <div>
                     <label class="text-sm font-medium text-[#004e64]">Nome completo</label>
                     <input 
                         id="nome"
+                        name="nome"
                         type="text"
                         required
                         placeholder="Seu nome"
@@ -58,6 +69,7 @@
                     <label class="text-sm font-medium text-[#004e64]">E-mail</label>
                     <input 
                         id="email"
+                        name="email"
                         type="email"
                         required
                         placeholder="email@exemplo.com"
@@ -71,6 +83,7 @@
                         <label class="text-sm font-medium text-[#004e64]">Senha</label>
                         <input 
                             id="senha"
+                            name="senha"
                             type="password"
                             required
                             minlength="4"
@@ -84,6 +97,7 @@
                         <label class="text-sm font-medium text-[#004e64]">Confirmar senha</label>
                         <input 
                             id="confirmar"
+                            name="confirmar"
                             type="password"
                             required
                             minlength="4"

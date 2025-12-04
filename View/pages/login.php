@@ -37,19 +37,26 @@
                 <p class="text-sm text-[#6b7280]">Acesse sua área de gestão</p>
             </div>
 
-            <div id="alert" class="hidden mb-4 p-3 rounded bg-red-100 text-red-700 text-sm"></div>
+            <?php
+            if (isset($_SESSION['erro'])) {
+                echo "<div id='alert' class='mb-4 p-3 rounded bg-red-100 text-red-700 text-sm'>{$_SESSION['erro']}</div>";
+                unset($_SESSION['erro']);
+            } else {
+                echo '<div id="alert" class="hidden mb-4 p-3 rounded bg-red-100 text-red-700 text-sm"></div>';
+            }
+            ?>
 
-            <form id="loginForm" class="space-y-4">
+            <form id="loginForm" action="../../Controller/loginController.php" method="POST" class="space-y-4">
 
                 <div>
                     <label class="text-sm font-medium text-[#004e64]">E-mail</label>
-                    <input id="email" type="email" required placeholder="email@exemplo.com" class="w-full mt-1 p-2 border rounded bg-white 
+                    <input id="email" name="email" type="email" required placeholder="email@exemplo.com" class="w-full mt-1 p-2 border rounded bg-white 
                                focus:ring-2 focus:ring-[#00a6bf]">
                 </div>
 
                 <div>
                     <label class="text-sm font-medium text-[#004e64]">Senha</label>
-                    <input id="password" type="password" required minlength="4" placeholder="••••••••" class="w-full mt-1 p-2 border rounded bg-white 
+                    <input id="password" name="senha" type="password" required minlength="4" placeholder="••••••••" class="w-full mt-1 p-2 border rounded bg-white 
                                focus:ring-2 focus:ring-[#00a6bf]">
                 </div>
 
@@ -67,14 +74,6 @@
                     Criar conta
                 </a>
             </p>
-
-            <p class="text-center text-sm text-[#6b7280] mt-4">
-                Esqueceu a senha?
-                <a href="#" class="text-[#00a6bf] font-medium hover:underline">
-                    Recuperar senha
-                </a>
-            </p>
-
         </div>
     </div>
 
