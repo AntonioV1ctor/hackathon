@@ -55,4 +55,19 @@ class UsuarioModel
             return false;
         }
     }
+
+    public function findUsuarioById($id)
+    {
+        try {
+            $sql = "SELECT id, nome, email, tipo, criado_em FROM usuarios WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar usuário por id: " . $e->getMessage());
+            return false;
+        }
+    }
 }

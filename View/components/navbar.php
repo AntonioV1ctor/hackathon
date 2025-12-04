@@ -36,6 +36,7 @@ $infoSessao = $usuarioLogado ? SessaoService::obterInfoSessao() : null;
 
             <?php if ($usuarioLogado): ?>
                 <div class="flex items-center gap-3">
+                    <a href="/hackathon/View/pages/perfil.php" class="hover:text-[#00a6bf] transition">Meu Perfil</a>
                     <a href="/hackathon/Controller/sairController.php"
                         class="px-4 py-2 rounded-md border border-[#004e64] text-[#004e64] hover:bg-slate-50 transition shadow">
                         Sair
@@ -92,6 +93,10 @@ $infoSessao = $usuarioLogado ? SessaoService::obterInfoSessao() : null;
                     <div class="text-xs text-slate-400 mb-2 px-4">
                         Sessão expira em <?php echo $infoSessao['expira_em']; ?>
                     </div>
+                    <a href="/hackathon/View/pages/perfil.php"
+                        class="block hover:text-[#00a6bf] hover:pl-2 transition-all px-4 mb-2">
+                        Meu Perfil
+                    </a>
                     <a href="/hackathon/Controller/sairController.php"
                         class="block text-red-600 font-medium hover:pl-2 transition-all px-4">
                         Sair da conta

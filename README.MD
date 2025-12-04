@@ -60,8 +60,7 @@ O sistema implementa um robusto mecanismo de autenticação com controle de expi
 - **Expiração automática**: Sessões expiram após 2 horas de inatividade
 - **Renovação automática**: Sessão é renovada automaticamente se houver atividade dentro de 30 minutos
 - **Proteção de rotas**: Páginas administrativas exigem autenticação válida
-- **Indicador visual**: Mostra tempo restante da sessão no navbar
-- **Proteção automática**: Logout forçado quando sessão expira
+ - **Proteção automática**: Logout forçado quando sessão expira
 
 ### Arquitetura
 - **SessaoService**: Classe responsável por gerenciar sessões com timestamps de expiração
