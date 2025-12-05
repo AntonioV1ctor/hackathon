@@ -41,7 +41,7 @@
                 if (isset($_SESSION['id'])) {
                     require_once '../../Model/usuarioModel.php';
                     $usuarioModel = new UsuarioModel();
-                    $visitadosIds = $usuarioModel->getIdsRestaurantesVisitados($_SESSION['id']);
+                    $visitadosIds = $usuarioModel->listarIdsRestaurantesVisitados($_SESSION['id']);
                 }
                 ?>
 

@@ -20,6 +20,8 @@ O sistema permite que usuários pesquisem restaurantes por diversos critérios (
 | **RF009** | O sistema deve permitir que o usuário remova restaurantes da lista de visitados através do perfil. |
 | **RF010** | O sistema deve possuir uma área administrativa para gerenciamento (CRUD) de restaurantes (Restrito a administradores). |
 | **RF011** | O sistema deve permitir logout. |
+| **RF012** | O sistema deve disponibilizar um Mapa Gastronômico interativo exibindo todos os restaurantes. |
+| **RF013** | O sistema deve possuir um Gerador de Roteiros, permitindo ao usuário selecionar cidades e refeições para criar um itinerário personalizado. |
 
 ## 3. Requisitos Não Funcionais (RNF)
 
@@ -59,6 +61,13 @@ Abaixo estão os casos de teste para validar as principais funcionalidades do si
 | **CT08** | Upload de Foto de Perfil | 1. Acessar perfil.<br>2. Clicar na foto de perfil.<br>3. Selecionar arquivo de imagem válido. | Arquivo: `foto.jpg` | A imagem deve ser enviada e atualizada na tela imediatamente. |
 | **CT09** | Upload de Arquivo Inválido | 1. Acessar perfil.<br>2. Clicar na foto.<br>3. Selecionar arquivo não imagem (ex: .pdf). | Arquivo: `doc.pdf` | Mensagem de erro informando formato inválido. Imagem não deve ser alterada. |
 | **CT10** | Remover Visita pelo Perfil | 1. Acessar perfil.<br>2. Localizar restaurante na tabela.<br>3. Clicar no ícone de lixeira.<br>4. Confirmar alerta. | Clique em "Remover" | O restaurante deve sumir da lista. |
+
+### 4.4. Funcionalidades Extras (Mapa e Roteiro)
+
+| ID Caso | Cenário | Passos de Execução | Dados de Entrada | Resultado Esperado |
+|---|---|---|---|---|
+| **CT11** | Visualizar Mapa Gastronômico | 1. Acessar página "Mapa". | N/A | O mapa deve carregar com marcadores (pins) em todos os restaurantes cadastrados. |
+| **CT12** | Gerar Roteiro | 1. Acessar página "Roteiro".<br>2. Selecionar cidades (ex: Bonito).<br>3. Marcar refeições (Almoço/Jantar).<br>4. Clicar em "Gerar Roteiro". | Cidades: `Bonito`<br>Refeição: `Almoço` | O sistema deve exibir uma lista de restaurantes sugeridos e traçar a rota no mapa. |
 
 ## 5. Diagrama de Entidade e Relacionamento (DER)
 

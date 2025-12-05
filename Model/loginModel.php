@@ -13,6 +13,12 @@ class LoginModel
         $this->conn = $database->conectar();
     }
 
+    /**
+     * Realiza o login do usuário
+     * @param string $email Email do usuário
+     * @param string $senha Senha do usuário
+     * @return object|false Retorna o objeto usuário se sucesso, ou false caso contrário
+     */
     public function login($email, $senha)
     {
         try {
@@ -36,6 +42,11 @@ class LoginModel
         }
     }
 
+    /**
+     * Busca a pergunta de segurança de um usuário
+     * @param string $email Email do usuário
+     * @return string|false Retorna a pergunta de segurança ou false se não encontrar
+     */
     public function buscarPerguntaSeguranca($email)
     {
         try {
@@ -52,6 +63,12 @@ class LoginModel
         }
     }
 
+    /**
+     * Verifica se a resposta de segurança está correta
+     * @param string $email Email do usuário
+     * @param string $resposta Resposta fornecida
+     * @return bool Retorna true se a resposta estiver correta
+     */
     public function verificarRespostaSeguranca($email, $resposta)
     {
         try {
@@ -73,6 +90,11 @@ class LoginModel
         }
     }
 
+    /**
+     * Verifica se um email já está cadastrado
+     * @param string $email Email a ser verificado
+     * @return bool Retorna true se o email já existir
+     */
     public function verificarEmailExistente($email)
     {
         try {

@@ -12,10 +12,19 @@ class UsuarioModel
         $this->conn = $database->conectar();
     }
 
+    /**
+     * Cadastra um novo usuário no sistema
+     * @param string $nome Nome completo do usuário
+     * @param string $email Email do usuário
+     * @param string $senha Senha do usuário
+     * @param string $perguntaSeguranca Pergunta de segurança para recuperação
+     * @param string $respostaSeguranca Resposta de segurança
+     * @return bool Retorna true se cadastrado com sucesso, false caso contrário
+     */
     public function cadastrarUsuario($nome, $email, $senha, $perguntaSeguranca, $respostaSeguranca)
     {
         try {
-            if ($this->findUsuarioByEmail($email)) {
+            if ($this->buscarUsuarioPorEmail($email)) {
                 return false;
             }
 
@@ -41,7 +50,12 @@ class UsuarioModel
         }
     }
 
-    public function findUsuarioByEmail($email)
+    /**
+     * Busca um usuário pelo email
+     * @param string $email Email do usuário
+     * @return array|false Retorna os dados do usuário ou false se não encontrar
+     */
+    public function buscarUsuarioPorEmail($email)
     {
         try {
             $sql = "SELECT * FROM usuarios WHERE email = :email";
@@ -56,7 +70,12 @@ class UsuarioModel
         }
     }
 
-    public function findUsuarioById($id)
+    /**
+     * Busca um usuário pelo ID
+     * @param int $id ID do usuário
+     * @return array|false Retorna os dados do usuário ou false se não encontrar
+     */
+    public function buscarUsuarioPorId($id)
     {
         try {
             $sql = "SELECT id, nome, email, tipo, criado_em, foto_perfil FROM usuarios WHERE id = :id";
@@ -71,7 +90,12 @@ class UsuarioModel
         }
     }
 
-    public function getRestaurantesVisitados($usuarioId)
+    /**
+     * Lista os restaurantes visitados por um usuário
+     * @param int $usuarioId ID do usuário
+     * @return array Lista de restaurantes visitados
+     */
+    public function listarRestaurantesVisitados($usuarioId)
     {
         try {
             $sql = "SELECT r.id, r.nome, r.endereco, rv.visitado_em 
@@ -90,6 +114,12 @@ class UsuarioModel
         }
     }
 
+    /**
+     * Adiciona um restaurante à lista de visitados do usuário
+     * @param int $usuarioId ID do usuário
+     * @param int $restauranteId ID do restaurante
+     * @return bool Retorna true se adicionado com sucesso
+     */
     public function adicionarVisita($usuarioId, $restauranteId)
     {
         try {
@@ -104,6 +134,12 @@ class UsuarioModel
         }
     }
 
+    /**
+     * Remove um restaurante da lista de visitados do usuário
+     * @param int $usuarioId ID do usuário
+     * @param int $restauranteId ID do restaurante
+     * @return bool Retorna true se removido com sucesso
+     */
     public function removerVisita($usuarioId, $restauranteId)
     {
         try {
@@ -118,7 +154,12 @@ class UsuarioModel
         }
     }
 
-    public function getIdsRestaurantesVisitados($usuarioId)
+    /**
+     * Retorna apenas os IDs dos restaurantes visitados pelo usuário
+     * @param int $usuarioId ID do usuário
+     * @return array Lista de IDs
+     */
+    public function listarIdsRestaurantesVisitados($usuarioId)
     {
         try {
             $sql = "SELECT restaurante_id FROM restaurantes_visitados WHERE usuario_id = :usuario_id";
@@ -132,6 +173,12 @@ class UsuarioModel
         }
     }
 
+    /**
+     * Atualiza a foto de perfil do usuário
+     * @param int $id ID do usuário
+     * @param string $caminhoImagem Caminho da imagem no servidor
+     * @return bool Retorna true se atualizado com sucesso
+     */
     public function atualizarFotoPerfil($id, $caminhoImagem)
     {
         try {

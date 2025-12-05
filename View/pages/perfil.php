@@ -9,7 +9,7 @@ if (!isset($_SESSION['id'])) {
 }
 
 $usuarioModel = new UsuarioModel();
-$usuario = $usuarioModel->findUsuarioById($_SESSION['id']);
+$usuario = $usuarioModel->buscarUsuarioPorId($_SESSION['id']);
 if (!$usuario) {
     echo "Erro ao carregar dados do usuário.";
     exit();
@@ -84,7 +84,7 @@ if (!$usuario) {
                     <div class="mt-8">
                     <h2 class="text-lg font-medium text-gray-900 mb-4">Restaurantes Visitados</h2>
                         <?php
-                        $restaurantesVisitados = $usuarioModel->getRestaurantesVisitados($usuario['id']);
+                        $restaurantesVisitados = $usuarioModel->listarRestaurantesVisitados($usuario['id']);
                         if (count($restaurantesVisitados) > 0):
                             ?>
                                 <div class="overflow-x-auto">
