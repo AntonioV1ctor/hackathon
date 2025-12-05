@@ -79,6 +79,33 @@ require_once '../components/head.php';
                                         echo "<option value=\"$cidade\" $selected>$cidade</option>";
                                     }
                                 }
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Categoria (Culinária)</label>
+
+                        <select name="categoria" required
+                            class="w-full rounded-md border-slate-300 shadow-sm focus:border-[#004e64] focus:ring-[#004e64]">
+
+                            <option value="" disabled <?= !$isEdit ? 'selected' : '' ?>>Selecione uma categoria...
+                            </option>
+
+                            <?php 
+                            $categorias = CategoriaService::listarCategorias();
+                            foreach ($categorias as $cat): 
+                            ?>
+                                <option value="<?= $cat ?>" <?= ($isEdit && $restaurante['categoria'] == $cat) ? 'selected' : '' ?>>
+                                    <?= $cat ?>
+                                </option>
+                            <?php endforeach; ?>
+
+                        </select>
+                    </div>
+
+                    <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Faixa de Preço</label>
                         <select name="faixa_preco"
                             class="w-full rounded-md border-slate-300 shadow-sm focus:border-[#004e64] focus:ring-[#004e64]">
