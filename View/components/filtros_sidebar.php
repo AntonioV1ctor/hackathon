@@ -54,15 +54,8 @@
                     class="w-full p-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#00a6bf] outline-none transition">
                     <option value="">Todas</option>
                     <?php
-                    $categorias = [
-                        'Regional',
-                        'Peixes e Frutos do Mar',
-                        'Churrascaria',
-                        'Comida Caseira',
-                        'Italiano/Massas',
-                        'Japonesa',
-                        'Lanches e Porções'
-                    ];
+                    require_once __DIR__ . '/../../Services/categoriaService.php';
+                    $categorias = CategoriaService::listarCategorias();
                     $culinariaSelecionada = $_GET['culinaria'] ?? '';
                     foreach ($categorias as $cat) {
                         $selected = $cat === $culinariaSelecionada ? 'selected' : '';

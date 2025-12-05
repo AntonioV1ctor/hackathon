@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sucesso = true;
 }
 require_once '../../Model/RestauranteModel.php';
+require_once '../../Services/categoriaService.php';
 
 $restauranteModel = new RestauranteModel();
 $restaurante = null;
@@ -78,43 +79,6 @@ require_once '../components/head.php';
                                         echo "<option value=\"$cidade\" $selected>$cidade</option>";
                                     }
                                 }
-                            }
-                            ?>
-                        </select>
-                    </div>
-
-
-                    <?php
-                    $categoriasDb = [
-                        ["id" => "Pantaneira", "nome" => "Pantaneira"],
-                        ["id" => "Peixes e Frutos do Mar", "nome" => "Peixes e Frutos do Mar"],
-                        ["id" => "Churrascaria", "nome" => "Churrascaria"],
-                        ["id" => "Comida Caseira", "nome" => "Comida Caseira"],
-                        ["id" => "Italiana / Massas", "nome" => "Italiana / Massas"],
-                        ["id" => "Japonesa", "nome" => "Japonesa"],
-                        ["id" => "Lanches e Porções", "nome" => "Lanches e Porções"],
-                        ["id" => "Vegetariana / Vegana", "nome" => "Vegetariana / Vegana"],
-                    ];
-                    ?>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Categoria (Culinária)</label>
-
-                        <select name="categoria" required
-                            class="w-full rounded-md border-slate-300 shadow-sm focus:border-[#004e64] focus:ring-[#004e64]">
-
-                            <option value="" disabled <?= !$isEdit ? 'selected' : '' ?>>Selecione uma categoria...
-                            </option>
-
-                            <?php foreach ($categoriasDb as $cat): ?>
-                                <option value="<?= $cat['id'] ?>" <?= ($isEdit && $restaurante['categoria'] == $cat['id']) ? 'selected' : '' ?>>
-                                    <?= $cat['nome'] ?>
-                                </option>
-                            <?php endforeach; ?>
-
-                        </select>
-                    </div>
-
-                    <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Faixa de Preço</label>
                         <select name="faixa_preco"
                             class="w-full rounded-md border-slate-300 shadow-sm focus:border-[#004e64] focus:ring-[#004e64]">

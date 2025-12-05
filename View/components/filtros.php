@@ -43,15 +43,8 @@
                     class="p-2 border rounded-lg shadow-sm w-full focus:ring-2 focus:ring-[#00a6bf]">
                     <option value="">Todas</option>
                     <?php
-                    $categorias = [
-                        'Regional',
-                        'Peixes e Frutos do Mar',
-                        'Churrascaria',
-                        'Comida Caseira',
-                        'Italiano/Massas',
-                        'Japonesa',
-                        'Lanches e Porções'
-                    ];
+                    require_once __DIR__ . '/../../Services/categoriaService.php';
+                    $categorias = CategoriaService::listarCategorias();
                     foreach ($categorias as $cat) {
                         echo "<option value=\"$cat\">$cat</option>";
                     }
